@@ -11,8 +11,8 @@ public class Maze {
     private int mazeHeight;
     private int mazeWidth;
 
-    MazeCell current;
-    ArrayList<MazeCell> neighbors;
+    MazeCell start;
+
 
     MazeCell[][] maze;
 
@@ -44,22 +44,13 @@ public class Maze {
         this.mazeWidth = mazeWidth;
     }
 
-    public MazeCell getCurrent() {
-        return current;
+    public MazeCell getStart() {
+        return start;
     }
 
-    public void setCurrent(MazeCell current) {
-        this.current = current;
+    public void setStart(MazeCell start) {
+        this.start = start;
     }
-
-    public ArrayList<MazeCell> getNeighbors() {
-        return neighbors;
-    }
-
-    public void setNeighbors(ArrayList<MazeCell> neighbors) {
-        this.neighbors = neighbors;
-    }
-
 
     public  static void main(String [] args) {
 
@@ -67,53 +58,50 @@ public class Maze {
     public MazeCell [][] mazeGenerator(MazeCell [][] maze) {
         Stack<MazeCell> visit = new Stack<MazeCell>();
 
+        start = findStartCell();
+
+         MazeCell current = start;
+
         while (visitedCells < totalCells) {
 
-            current = findCurrentCell();
+            //get neighbors
+            current = getNextCell(current);
 
-            makeMaze(current);
+            // Chooses a neighbor to visit
+            // current = chooseNext();
 
+            if (!current.isVisited()) {
+                visit.push(current);
+                visitedCells++;
+                current.setVisited(true);
+                getNextCell(current);
+            }
 
-            return maze;
+            if (current.isVisited()) {
+                getNextCell(current);
+            }
+
         }
+            return maze;
+
     }
-    private MazeCell findCurrentCell(){
+    private MazeCell findStartCell(){
         Random currentX = new Random();
         Random currentY = new Random();
 
         int cellX = currentX.nextInt(mazeHeight - 1);
         int cellY = currentY.nextInt(mazeWidth - 1);
 
-        current = new MazeCell(cellX, cellY);
-        return current;
+        start = new MazeCell(cellX, cellY);
+        return start;
 
     }
 
-    private boolean makeMaze(MazeCell current) {
-            this.current = current;
 
-            //get neighbors
-            neighbors = findNeighborCells();
 
-            // Chooses a neighbor to visit
-            current = chooseNext();
+        private MazeCell getNextCell(MazeCell cell){
 
-            if (!current.isVisited()) {
-                visitedCells++;
-                current.setVisited(true);
-                //remove wall - HOW???
-
-            }
-            if (current.isVisited()) {
-                findNeighborCells();
-            }
-
-            if (visitedCells == totalCells) {
-                //print maze
-            }
-        }
-
-        private ArrayList <MazeCell> findNeighborCells(){
+            ArrayList<MazeCell> neighbors = null;
 
             MazeCell top = null;
             MazeCell bottom = null;
@@ -121,20 +109,20 @@ public class Maze {
             MazeCell right = null;
 
 
-            if ((current.getCellX() - 1) > 0 ++ < mazeHeight) {
-                top = new MazeCell(current.getCellX() - 1, current.getCellY());
+            if ((cell.getCellX() - 1) > 0 ++ < mazeHeight) {
+                top = new MazeCell(cell.getCellX() - 1, cell.getCellY());
             }
 
-            if ((current.getCellX() + 1) > 0 ++ < mazeHeight){
-                bottom = new MazeCell(current.getCellX() + 1, current.getCellY());
+            if ((cell.getCellX() + 1) > 0 ++ < mazeHeight){
+                bottom = new MazeCell(cell.getCellX() + 1, cell.getCellY());
             }
 
-            if ((current.getCellY() - 1) > 0 ++ < mazeHeight) {
-                left = new MazeCell(current.getCellX(), current.getCellY() - 1);
+            if ((cell.getCellY() - 1) > 0 ++ < mazeHeight) {
+                left = new MazeCell(cell.getCellX(), cell.getCellY() - 1);
             }
 
-            if ((current.getCellX() + 1) > 0 ++ < mazeHeight){
-                right = new MazeCell(current.getCellX(), current.getCellY() + 1);
+            if ((cell.getCellX() + 1) > 0 ++ < mazeHeight){
+                right = new MazeCell(cell.getCellX(), cell.getCellY() + 1);
             }
 
             neighbors.add(top);
@@ -142,11 +130,14 @@ public class Maze {
             neighbors.add(left);
             neighbors.add(right);
 
-            return neighbors;
+            // Chooses a neighbor to visit
+            cell = chooseNext(neighbors);
+
+            return cell;
 
         }
 
-        private MazeCell chooseNext() {
+        private MazeCell chooseNext(ArrayList<MazeCell> neighbors) {
             Collections.shuffle(neighbors);
             return neighbors.get(0);
 
