@@ -79,9 +79,7 @@ public class EarthquakeView extends JFrame {
 		return dMag;
 	}
 
-	public JTextComponent getDayLocTextField() {
-		return dPlace;
-	}
+	public JTextComponent getDayLocTextField() { return dPlace;	}
 
 	public JTextComponent getWeekMagTextField() {
 		return wMag;
