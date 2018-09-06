@@ -101,7 +101,11 @@ public class Maze {
             if (!current.isVisited()) {
                 visitedCells++;
                 current.setVisited(true);
+                //remove wall - HOW???
 
+            }
+            if (current.isVisited()) {
+                findNeighborCells();
             }
 
             if (visitedCells == totalCells) {
