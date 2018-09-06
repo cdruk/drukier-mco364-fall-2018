@@ -8,25 +8,25 @@ import java.util.Stack;
 
 public class Maze {
 
-    private int mazeHeight;
-    private int mazeWidth;
+    private int mazeHeight = 10;
+    private int mazeWidth = 10;
 
     MazeCell start;
 
 
-    MazeCell[][] maze;
+    MazeCell[][] array;
 
     int visitedCells = 0;
     int totalCells = getMazeHeight() * getMazeWidth();
 
 
-    public Maze(int length, int width) {
-        mazeHeight = length;
-        mazeWidth = width;
-
-        maze = new MazeCell[mazeHeight][mazeWidth];
-
-    }
+//    public Maze(int length, int width) {
+//        mazeHeight = length;
+//        mazeWidth = width;
+//
+//        maze = new MazeCell[mazeHeight][mazeWidth];
+//
+//    }
 
     public int getMazeHeight() {
         return mazeHeight;
@@ -52,15 +52,19 @@ public class Maze {
         this.start = start;
     }
 
-    public  static void main(String [] args) {
+    public static void main(String[] args) {
 
+        Maze maze = new Maze();
+        maze.mazeGenerator();
     }
-    public MazeCell [][] mazeGenerator(MazeCell [][] maze) {
+
+    public MazeCell[][] mazeGenerator() {
+
         Stack<MazeCell> visit = new Stack<MazeCell>();
 
         start = findStartCell();
 
-         MazeCell current = start;
+        MazeCell current = start;
 
         while (visitedCells < totalCells) {
 
@@ -82,10 +86,11 @@ public class Maze {
             }
 
         }
-            return maze;
+        return array;
 
     }
-    private MazeCell findStartCell(){
+
+    private MazeCell findStartCell() {
         Random currentX = new Random();
         Random currentY = new Random();
 
@@ -98,57 +103,56 @@ public class Maze {
     }
 
 
+    private MazeCell getNextCell(MazeCell cell) {
 
-        private MazeCell getNextCell(MazeCell cell){
+        ArrayList<MazeCell> neighbors = null;
 
-            ArrayList<MazeCell> neighbors = null;
-
-            MazeCell top = null;
-            MazeCell bottom = null;
-            MazeCell left = null;
-            MazeCell right = null;
+        MazeCell top = null;
+        MazeCell bottom = null;
+        MazeCell left = null;
+        MazeCell right = null;
 
 
-            if ((cell.getCellX() - 1) > 0 ++ < mazeHeight) {
-                top = new MazeCell(cell.getCellX() - 1, cell.getCellY());
-            }
-
-            if ((cell.getCellX() + 1) > 0 ++ < mazeHeight){
-                bottom = new MazeCell(cell.getCellX() + 1, cell.getCellY());
-            }
-
-            if ((cell.getCellY() - 1) > 0 ++ < mazeHeight) {
-                left = new MazeCell(cell.getCellX(), cell.getCellY() - 1);
-            }
-
-            if ((cell.getCellX() + 1) > 0 ++ < mazeHeight){
-                right = new MazeCell(cell.getCellX(), cell.getCellY() + 1);
-            }
-
-            neighbors.add(top);
-            neighbors.add(bottom);
-            neighbors.add(left);
-            neighbors.add(right);
-
-            // Chooses a neighbor to visit
-            cell = chooseNext(neighbors);
-
-            return cell;
-
+        if ((cell.getCellX() - 1) > 0 && (cell.getCellX() - 1) < mazeHeight) {
+            top = new MazeCell(cell.getCellX() - 1, cell.getCellY());
         }
 
-        private MazeCell chooseNext(ArrayList<MazeCell> neighbors) {
-            Collections.shuffle(neighbors);
-            return neighbors.get(0);
-
+        if ((cell.getCellX() + 1) > 0 && (cell.getCellX() + 1) < mazeHeight) {
+            bottom = new MazeCell(cell.getCellX() + 1, cell.getCellY());
         }
+
+        if ((cell.getCellY() - 1) > 0 && (cell.getCellY() - 1) < mazeHeight) {
+            left = new MazeCell(cell.getCellX(), cell.getCellY() - 1);
+        }
+
+        if ((cell.getCellX() + 1) > 0 && (cell.getCellX() + 1) < mazeHeight) {
+            right = new MazeCell(cell.getCellX(), cell.getCellY() + 1);
+        }
+
+        neighbors.add(top);
+        neighbors.add(bottom);
+        neighbors.add(left);
+        neighbors.add(right);
+
+        // Chooses a neighbor to visit
+        cell = chooseNext(neighbors);
+
+        return cell;
+
+    }
+
+    private MazeCell chooseNext(ArrayList<MazeCell> neighbors) {
+        Collections.shuffle(neighbors);
+        return neighbors.get(0);
+
+    }
     //pick cell
-        //check visited
-        //yes - pick neighbor and move
-        //no - mark visited, pick neighbor, remove wall, move
-        //cant move? check if all visited
-        // yes - print
-        //no - backtrack
+    //check visited
+    //yes - pick neighbor and move
+    //no - mark visited, pick neighbor, remove wall, move
+    //cant move? check if all visited
+    // yes - print
+    //no - backtrack
 
 //        Randomly select a node (or cell) N.
 //                Push the node N onto a queue Q.
@@ -161,9 +165,6 @@ public class Maze {
 //        Go to step 2.
 
 
-
-        }
-    }
-
-
 }
+
+
