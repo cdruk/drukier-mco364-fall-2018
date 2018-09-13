@@ -2,62 +2,49 @@ package drukier.earthquake.last;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import drukier.earthquake.net.EarthquakeController;
+import drukier.earthquake.Earthquake;
+import drukier.earthquake.EarthquakeProperties;
 import drukier.earthquake.net.EarthquakeModule;
 
+import javax.inject.Singleton;
 import javax.swing.*;
-import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
+import java.util.List;
 
-public class EarthquakeView extends JFrame {
+@Singleton
+public class EarthquakeView extends JFrame  {
 
-    private JTextField firstMag;
-    private JTextField firstLoc;
-    private JTextField secondMag;
-    private JTextField secondLoc;
-    private JTextField thirdMag;
-    private JTextField thirdLoc;
-    private JTextField fourthMag;
-    private JTextField fourthLoc;
-    private JTextField fifthMag;
-    private JTextField fifthLoc;
+    private static Timer timer;
+    private JLabel showEarthquakeInfo[] = new JLabel[5];
 
     public EarthquakeView() {
         setTitle("Largest Earthquake");
         setSize(800, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        firstMag = new JTextField();
-        firstLoc = new JTextField();
-        secondMag = new JTextField();
-        secondLoc = new JTextField();
-        thirdMag = new JTextField();
-        thirdLoc = new JTextField();
-        fourthMag = new JTextField();
-        fourthLoc = new JTextField();
-        fifthMag = new JTextField();
-        fifthLoc = new JTextField();
-
         JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        panel.add(new JLabel("Largest Earthquake"), BorderLayout.NORTH);
-
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(0, 2));
-        mainPanel.add(firstMag);
-        mainPanel.add(firstLoc);
-        mainPanel.add(secondMag);
-        mainPanel.add(secondLoc);
-        mainPanel.add(thirdMag);
-        mainPanel.add(thirdLoc);
-        mainPanel.add(fourthMag);
-        mainPanel.add(fourthLoc);
-        mainPanel.add(fifthMag);
-        mainPanel.add(fifthLoc);
-        panel.add(mainPanel, BorderLayout.CENTER);
+        for (int i = 0; i < showEarthquakeInfo.length; i++){
+            showEarthquakeInfo[i] = new JLabel();
+            panel.add(showEarthquakeInfo[i]);
+        }
 
         add(panel);
+
+    }
+
+    public void setEarthquakes(List<Earthquake> earthquakes) {
+
+        for (int i = 0; i < showEarthquakeInfo.length && i < earthquakes.size(); i++) {
+            EarthquakeProperties properties = earthquakes.get(i).getProperties();
+
+            String earthquakeValue = properties.getMag() + " " + properties.getPlace();
+            showEarthquakeInfo[i].setText(earthquakeValue);
+        }
+
     }
 
     public static void main(String[] args) throws FileNotFoundException {
@@ -70,6 +57,14 @@ public class EarthquakeView extends JFrame {
 
         controller.refreshData();
 
+        view.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                controller.stop();
+            }
+        });
+
         view.setVisible(true);
     }
+
 }
