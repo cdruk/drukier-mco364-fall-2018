@@ -35,22 +35,18 @@ public class EarthquakeView extends JFrame  {
 
     }
 
-
     void setEarthquakes(EarthquakeFeed feed) {
 
         List<Earthquake> earthquakes = feed.getFeatures();
 
-        for (int i = 0; i < ((earthquakes.size()) - 1); i++) {
+        for (int i = 0; i < earthquakes.size(); i++) {
             EarthquakeProperties properties = earthquakes.get(i).getProperties();
 
             String earthquakeValue = String.valueOf(properties.getMag()) + " " + String.valueOf(properties.getPlace());
-                return earthquakeValue;
+                showEarthquakeInfo[i].setText(earthquakeValue);
             }
 
         }
-    }
-
-
 
     public static void main(String[] args) throws FileNotFoundException {
 
@@ -66,4 +62,4 @@ public class EarthquakeView extends JFrame  {
 
         view.setVisible(true);
     }
-
+}

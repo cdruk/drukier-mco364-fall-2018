@@ -1,56 +1,20 @@
 package drukier.maze;
 
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
-import java.util.Stack;
+import java.util.*;
 
 public class Maze {
 
     private int mazeHeight = 10;
     private int mazeWidth = 10;
 
-    MazeCell start;
+    private Random random = new Random();
 
+    private MazeCell start;
 
-    MazeCell[][] array;
+    private MazeCell[][] array = new MazeCell[mazeHeight][mazeWidth];
 
     int visitedCells = 0;
-    int totalCells = getMazeHeight() * getMazeWidth();
-
-
-//    public Maze(int length, int width) {
-//        mazeHeight = length;
-//        mazeWidth = width;
-//
-//        maze = new MazeCell[mazeHeight][mazeWidth];
-//
-//    }
-
-    public int getMazeHeight() {
-        return mazeHeight;
-    }
-
-    public void setMazeHeight(int mazeHeight) {
-        this.mazeHeight = mazeHeight;
-    }
-
-    public int getMazeWidth() {
-        return mazeWidth;
-    }
-
-    public void setMazeWidth(int mazeWidth) {
-        this.mazeWidth = mazeWidth;
-    }
-
-    public MazeCell getStart() {
-        return start;
-    }
-
-    public void setStart(MazeCell start) {
-        this.start = start;
-    }
+    int totalCells = mazeHeight * mazeWidth;
 
     public static void main(String[] args) {
 
@@ -60,8 +24,9 @@ public class Maze {
 
     public MazeCell[][] mazeGenerator() {
 
-        Stack<MazeCell> visit = new Stack<MazeCell>();
+        Stack<MazeCell> visit = new Stack<>();
 
+        //Randomly select a cell "start".
         start = findStartCell();
 
         MazeCell current = start;
@@ -91,15 +56,17 @@ public class Maze {
     }
 
     private MazeCell findStartCell() {
-        Random currentX = new Random();
-        Random currentY = new Random();
 
-        int cellX = currentX.nextInt(mazeHeight - 1);
-        int cellY = currentY.nextInt(mazeWidth - 1);
+        int cellX = random.nextInt(mazeHeight - 1);
+        int cellY = random.nextInt(mazeWidth - 1);
 
-        start = new MazeCell(cellX, cellY);
+        start = getMazeCell(cellX, cellY);
         return start;
 
+    }
+
+    private MazeCell getMazeCell(int cellX, int cellY) {
+        return array[cellX][cellY];
     }
 
 
@@ -114,25 +81,33 @@ public class Maze {
 
 
         if ((cell.getCellX() - 1) > 0 && (cell.getCellX() - 1) < mazeHeight) {
-            top = new MazeCell(cell.getCellX() - 1, cell.getCellY());
+            top = getMazeCell(cell.getCellX() - 1, cell.getCellY());
         }
 
         if ((cell.getCellX() + 1) > 0 && (cell.getCellX() + 1) < mazeHeight) {
-            bottom = new MazeCell(cell.getCellX() + 1, cell.getCellY());
+            bottom = getMazeCell(cell.getCellX() + 1, cell.getCellY());
         }
 
         if ((cell.getCellY() - 1) > 0 && (cell.getCellY() - 1) < mazeHeight) {
-            left = new MazeCell(cell.getCellX(), cell.getCellY() - 1);
+            left = getMazeCell(cell.getCellX(), cell.getCellY() - 1);
         }
 
         if ((cell.getCellX() + 1) > 0 && (cell.getCellX() + 1) < mazeHeight) {
-            right = new MazeCell(cell.getCellX(), cell.getCellY() + 1);
+            right = getMazeCell(cell.getCellX(), cell.getCellY() + 1);
         }
 
-        neighbors.add(top);
-        neighbors.add(bottom);
-        neighbors.add(left);
-        neighbors.add(right);
+        if (!top.isVisited()){
+            neighbors.add(top);
+        }
+        if (!bottom.isVisited()){
+            neighbors.add(bottom);
+        }
+        if (!left.isVisited()){
+            neighbors.add(left);
+        }
+        if (!right.isVisited()){
+            neighbors.add(right);
+        }
 
         // Chooses a neighbor to visit
         cell = chooseNext(neighbors);
@@ -146,6 +121,20 @@ public class Maze {
         return neighbors.get(0);
 
     }
+
+
+//      1 Randomly select a node (or cell) N.
+//      2 Push the node N onto a queue Q.
+//      3 Mark the cell N as visited.
+//      4 Randomly select an adjacent cell A of node N that has not been visited.
+//        If all the neighbors of N have been visited:
+//            a)  Continue to pop items off the queue Q until a node is encountered with at least
+//                one non-visited neighbor - assign this node to N and go to step 4.
+//            b)  If no nodes exist: stop.
+//      5 Break the wall between N and A.
+//      6 Assign the value A to N.
+//      7 Go to step 2.
+
     //pick cell
     //check visited
     //yes - pick neighbor and move
@@ -153,18 +142,6 @@ public class Maze {
     //cant move? check if all visited
     // yes - print
     //no - backtrack
-
-//        Randomly select a node (or cell) N.
-//                Push the node N onto a queue Q.
-//                Mark the cell N as visited.
-//                Randomly select an adjacent cell A of node N that has not been visited. If all the neighbors of N have been visited:
-//        Continue to pop items off the queue Q until a node is encountered with at least one non-visited neighbor - assign this node to N and go to step 4.
-//        If no nodes exist: stop.
-//                Break the wall between N and A.
-//        Assign the value A to N.
-//        Go to step 2.
-
-
 }
 
 
