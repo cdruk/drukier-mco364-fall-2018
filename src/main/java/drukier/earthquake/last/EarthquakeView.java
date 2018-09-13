@@ -6,10 +6,12 @@ import drukier.earthquake.Earthquake;
 import drukier.earthquake.EarthquakeProperties;
 import drukier.earthquake.net.EarthquakeModule;
 
+import javax.inject.Singleton;
 import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.util.List;
 
+@Singleton
 public class EarthquakeView extends JFrame  {
 
     private static Timer timer;
