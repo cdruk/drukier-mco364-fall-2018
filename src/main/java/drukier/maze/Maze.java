@@ -33,17 +33,16 @@ public class Maze {
 
         while (visitedCells < totalCells) {
 
-            if (!current.isVisited()) {
-                visit.push(current);
-                current.setVisited(true);
-                visitedCells++;
-                next = getNextCell(current);
-                removeWalls(current, next);
-                visit.pop();
-                next = current;
-            }
+            current.setVisited(true);
+            visitedCells++;
+            next = getNextCell(current);
+            removeWalls(current, next);
+            visit.push(current);
+            visit.pop();
+            next = current;
 
-            if (current.isVisited()) {
+
+            if (visit.peek().isVisited()) {
                 current = getNextCell(current);
             }
         }
@@ -68,7 +67,7 @@ public class Maze {
 
     private MazeCell getNextCell(MazeCell cell) {
 
-        ArrayList<MazeCell> neighbors = null;
+        ArrayList<MazeCell> neighbors = new ArrayList<>();
 
         MazeCell top = null;
         MazeCell bottom = null;
@@ -92,16 +91,16 @@ public class Maze {
             right = getMazeCell(cell.getCellX(), cell.getCellY() + 1);
         }
 
-        if (!top.isVisited()){
+        if (top != null && !top.isVisited()){
             neighbors.add(top);
         }
-        if (!bottom.isVisited()){
+        if (bottom != null && !bottom.isVisited()){
             neighbors.add(bottom);
         }
-        if (!left.isVisited()){
+        if (left != null && !left.isVisited()){
             neighbors.add(left);
         }
-        if (!right.isVisited()){
+        if (right != null && !right.isVisited()){
             neighbors.add(right);
         }
 
