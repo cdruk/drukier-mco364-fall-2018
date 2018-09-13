@@ -39,6 +39,7 @@ public class Maze {
                 visitedCells++;
                 next = getNextCell(current);
                 removeWalls(current, next);
+                visit.pop();
                 next = current;
             }
 
