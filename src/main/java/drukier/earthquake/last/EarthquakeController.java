@@ -3,8 +3,6 @@ package drukier.earthquake.last;
 import com.google.inject.Inject;
 import drukier.earthquake.Earthquake;
 import drukier.earthquake.EarthquakeFeed;
-import drukier.earthquake.EarthquakeProperties;
-import drukier.earthquake.net.EarthquakeView;
 import drukier.earthquake.net.USGSEarthquakeService;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,7 +14,7 @@ import java.util.Comparator;
 import java.util.stream.Collectors;
 
 public class EarthquakeController {
-    private drukier.earthquake.net.EarthquakeView view;
+    private EarthquakeView view;
     private USGSEarthquakeService service;
 
     @Inject
@@ -31,17 +29,19 @@ public class EarthquakeController {
     }
 
     private void requestResults() {
-        requestEarthquakeFeed(service.getAllHour(), view.getHourMagTextField(), view.getHourLocTextField());
+        requestEarthquakeFeed(service.getAllDay());
+
     }
 
-    private void requestEarthquakeFeed(Call<EarthquakeFeed> call, JTextComponent MagTextField, JTextComponent LocTextField) {
+    private void requestEarthquakeFeed(Call<EarthquakeFeed> call) {
         call.enqueue(new Callback<EarthquakeFeed>() {
 
             @Override
             public void onResponse(Call<EarthquakeFeed> mCall, Response<EarthquakeFeed> response) {
                 EarthquakeFeed feed = response.body();
 
-                showLargestEarthquakes(feed, MagTextField, LocTextField);
+                showLargestEarthquakes(feed);
+
             }
 
             @Override
@@ -52,7 +52,7 @@ public class EarthquakeController {
         });
     }
 
-    void showLargestEarthquakes(EarthquakeFeed feed, JTextComponent magField, JTextComponent locField) {
+    void showLargestEarthquakes(EarthquakeFeed feed) {
         List<Earthquake> earthquakes = feed.getFeatures()
                 .stream()
                 .filter(earthquake -> earthquake.getProperties().getMag() >= 1)
@@ -60,12 +60,8 @@ public class EarthquakeController {
                 .limit(5)
                 .collect(Collectors.toList());
 
-        EarthquakeProperties properties = earthquakes.get().getProperties();
-
-        String magnitude = String.valueOf(properties.getMag());
-        magField.setText(magnitude);
-
-        String location = String.valueOf(properties.getPlace());
-        locField.setText(location);
+        view.setEarthquakes(earthquakes);
     }
+
+
 }
