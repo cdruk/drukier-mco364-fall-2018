@@ -26,30 +26,25 @@ public class Maze {
 
         Stack<MazeCell> visit = new Stack<>();
 
-        //Randomly select a cell "start".
         start = findStartCell();
 
         MazeCell current = start;
+        MazeCell next;
 
         while (visitedCells < totalCells) {
 
-            //get neighbors
-            current = getNextCell(current);
-
-            // Chooses a neighbor to visit
-            // current = chooseNext();
-
             if (!current.isVisited()) {
                 visit.push(current);
-                visitedCells++;
                 current.setVisited(true);
-                getNextCell(current);
+                visitedCells++;
+                next = getNextCell(current);
+                removeWalls(current, next);
+                next = current;
             }
 
             if (current.isVisited()) {
-                getNextCell(current);
+                current = getNextCell(current);
             }
-
         }
         return array;
 
@@ -122,18 +117,10 @@ public class Maze {
 
     }
 
+    private void removeWalls(MazeCell current, MazeCell next) {
 
-//      1 Randomly select a node (or cell) N.
-//      2 Push the node N onto a queue Q.
-//      3 Mark the cell N as visited.
-//      4 Randomly select an adjacent cell A of node N that has not been visited.
-//        If all the neighbors of N have been visited:
-//            a)  Continue to pop items off the queue Q until a node is encountered with at least
-//                one non-visited neighbor - assign this node to N and go to step 4.
-//            b)  If no nodes exist: stop.
-//      5 Break the wall between N and A.
-//      6 Assign the value A to N.
-//      7 Go to step 2.
+
+    }
 
     //pick cell
     //check visited

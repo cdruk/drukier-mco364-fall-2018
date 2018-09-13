@@ -3,13 +3,10 @@ package drukier.earthquake.last;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import drukier.earthquake.Earthquake;
-import drukier.earthquake.EarthquakeFeed;
 import drukier.earthquake.EarthquakeProperties;
 import drukier.earthquake.net.EarthquakeModule;
 
 import javax.swing.*;
-import javax.swing.text.JTextComponent;
-import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.List;
 
