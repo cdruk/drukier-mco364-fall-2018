@@ -24,7 +24,7 @@ public class EarthquakeController {
     }
 
     public void refreshData() {
-       requestResults();
+        requestResults();
 
     }
 
@@ -42,7 +42,6 @@ public class EarthquakeController {
 
                 showLargestEarthquakes(feed);
 
-                view.setEarthquakes(feed);
             }
 
             @Override
@@ -60,6 +59,8 @@ public class EarthquakeController {
                 .sorted(Comparator.comparing(Earthquake::getMagnitude).reversed())
                 .limit(5)
                 .collect(Collectors.toList());
+
+        view.setEarthquakes(earthquakes);
     }
 
 

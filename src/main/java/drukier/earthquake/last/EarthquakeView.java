@@ -3,13 +3,10 @@ package drukier.earthquake.last;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import drukier.earthquake.Earthquake;
-import drukier.earthquake.EarthquakeFeed;
 import drukier.earthquake.EarthquakeProperties;
 import drukier.earthquake.net.EarthquakeModule;
 
 import javax.swing.*;
-import javax.swing.text.JTextComponent;
-import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.List;
 
@@ -35,22 +32,16 @@ public class EarthquakeView extends JFrame  {
 
     }
 
+    public void setEarthquakes(List<Earthquake> earthquakes) {
 
-    void setEarthquakes(EarthquakeFeed feed) {
-
-        List<Earthquake> earthquakes = feed.getFeatures();
-
-        for (int i = 0; i < ((earthquakes.size()) - 1); i++) {
+        for (int i = 0; i < showEarthquakeInfo.length && i < earthquakes.size(); i++) {
             EarthquakeProperties properties = earthquakes.get(i).getProperties();
 
-            String earthquakeValue = String.valueOf(properties.getMag()) + " " + String.valueOf(properties.getPlace());
-                return earthquakeValue;
-            }
-
+            String earthquakeValue = properties.getMag() + " " + properties.getPlace();
+            showEarthquakeInfo[i].setText(earthquakeValue);
         }
+
     }
-
-
 
     public static void main(String[] args) throws FileNotFoundException {
 
@@ -67,3 +58,4 @@ public class EarthquakeView extends JFrame  {
         view.setVisible(true);
     }
 
+}
