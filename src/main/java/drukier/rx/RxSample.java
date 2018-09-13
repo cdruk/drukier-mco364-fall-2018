@@ -13,14 +13,11 @@ public class RxSample {
 
         Observable<Integer> observable = Observable.just(5, 4, 3, 3, 4, 4, 4, 3, 2, 1);
 
-        Observable.from
-
         Disposable disposable = observable
                 .filter(integer -> integer % 2 == 0)
                 .map(integer -> integer * 2)
                 .distinct()
                 .sorted()
-                .toList()
                 //.subscribeOn(Schedulers.computation())
                 //.observeOn(Schedulers.single())
                 .subscribe(System.out::println);

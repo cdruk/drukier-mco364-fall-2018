@@ -2,7 +2,6 @@ package drukier.earthquake.net;
 
 import drukier.earthquake.EarthquakeFeed;
 import io.reactivex.Observable;
-import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface USGSEarthquakeService {

@@ -6,10 +6,14 @@ import drukier.earthquake.Earthquake;
 import drukier.earthquake.EarthquakeProperties;
 import drukier.earthquake.net.EarthquakeModule;
 
+import javax.inject.Singleton;
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.util.List;
 
+@Singleton
 public class EarthquakeView extends JFrame  {
 
     private static Timer timer;
@@ -51,9 +55,14 @@ public class EarthquakeView extends JFrame  {
 
         drukier.earthquake.last.EarthquakeController controller = injector.getInstance(drukier.earthquake.last.EarthquakeController.class);
 
-        timer = new Timer(30_000, (event) -> controller.refreshData());
-        timer.setInitialDelay(0);
-        timer.start();
+        controller.refreshData();
+
+        view.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                controller.stop();
+            }
+        });
 
         view.setVisible(true);
     }
