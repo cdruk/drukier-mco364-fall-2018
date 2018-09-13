@@ -35,14 +35,12 @@ public class EarthquakeView extends JFrame  {
 
     }
 
-    void setEarthquakes(EarthquakeFeed feed) {
+    public void setEarthquakes(List<Earthquake> earthquakes) {
 
-        List<Earthquake> earthquakes = feed.getFeatures();
-
-        for (int i = 0; i < earthquakes.size(); i++) {
+        for (int i = 0; i < showEarthquakeInfo.length && i < earthquakes.size(); i++) {
             EarthquakeProperties properties = earthquakes.get(i).getProperties();
 
-            String earthquakeValue = String.valueOf(properties.getMag()) + " " + String.valueOf(properties.getPlace());
+            String earthquakeValue = properties.getMag() + " " + properties.getPlace();
                 showEarthquakeInfo[i].setText(earthquakeValue);
             }
 
@@ -62,4 +60,5 @@ public class EarthquakeView extends JFrame  {
 
         view.setVisible(true);
     }
+
 }
