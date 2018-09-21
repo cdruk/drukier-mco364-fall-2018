@@ -10,17 +10,20 @@ public class Maze {
     private Random random = new Random();
 
     private MazeCell start;
+    private MazeCell current;
+    private MazeCell next;
 
     private MazeCell[][] array = new MazeCell[mazeHeight][mazeWidth];
 
     int visitedCells = 0;
     int totalCells = mazeHeight * mazeWidth;
 
-    public static void main(String[] args) {
-
-        Maze maze = new Maze();
-        maze.mazeGenerator();
+    public Maze(MazeCell[][] array) {
+        this.array = array;
     }
+
+    Maze maze = new Maze();
+        maze.mazeGenerator();
 
     public MazeCell[][] mazeGenerator() {
 
@@ -28,8 +31,7 @@ public class Maze {
 
         start = findStartCell();
 
-        MazeCell current = start;
-        MazeCell next;
+        current = start;
 
         while (visitedCells < totalCells) {
 
@@ -129,6 +131,26 @@ public class Maze {
     //cant move? check if all visited
     // yes - print
     //no - backtrack
+
+    public String toString(){
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 1; i<mazeHeight; i++){
+            for (int j = 1; j<mazeWidth; j++){
+                MazeCell mazeDone = array[i][j];
+                if (array.issWall()){
+                    builder.append("_");
+                }
+                if (array.iseWall()){
+                    builder.append("|");
+                }
+                builder.append("\n");
+            }
+
+            return builder.toString();
+        }
+    }
 }
+
 
 

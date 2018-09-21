@@ -97,7 +97,7 @@ public class EarthquakeView extends JFrame {
 		return mPlace;
 	}
 
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) {
 		
 		Injector injector = Guice.createInjector(new EarthquakeModule());
 		

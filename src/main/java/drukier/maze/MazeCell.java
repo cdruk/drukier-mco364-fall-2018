@@ -9,6 +9,39 @@ public class MazeCell {
 
     private boolean nWall = true;
     private boolean sWall = true;
+
+    public boolean isnWall() {
+        return nWall;
+    }
+
+    public void setnWall(boolean nWall) {
+        this.nWall = nWall;
+    }
+
+    public boolean issWall() {
+        return sWall;
+    }
+
+    public void setsWall(boolean sWall) {
+        this.sWall = sWall;
+    }
+
+    public boolean iseWall() {
+        return eWall;
+    }
+
+    public void seteWall(boolean eWall) {
+        this.eWall = eWall;
+    }
+
+    public boolean iswWall() {
+        return wWall;
+    }
+
+    public void setwWall(boolean wWall) {
+        this.wWall = wWall;
+    }
+
     private boolean eWall = true;
     private boolean wWall = true;
 
