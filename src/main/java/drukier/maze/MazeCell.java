@@ -9,6 +9,9 @@ public class MazeCell {
 
     private boolean nWall = true;
     private boolean sWall = true;
+    private boolean eWall = true;
+    private boolean wWall = true;
+
 
     public boolean isnWall() {
         return nWall;
@@ -41,9 +44,6 @@ public class MazeCell {
     public void setwWall(boolean wWall) {
         this.wWall = wWall;
     }
-
-    private boolean eWall = true;
-    private boolean wWall = true;
 
     public MazeCell(int cellX, int cellY){
         this.cellX = cellX;
