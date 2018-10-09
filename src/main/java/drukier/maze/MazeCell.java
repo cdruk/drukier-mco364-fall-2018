@@ -12,6 +12,7 @@ public class MazeCell {
     private boolean eWall = true;
     private boolean wWall = true;
 
+    private MazeCell next;
 
     public boolean isnWall() {
         return nWall;
@@ -64,5 +65,13 @@ public class MazeCell {
 
     public int getCellY() {
         return cellY;
+    }
+
+    public MazeCell getNext() {
+        return next;
+    }
+
+    public void setNext(MazeCell next) {
+        this.next = next;
     }
 }

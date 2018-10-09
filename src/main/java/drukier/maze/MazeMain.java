@@ -5,6 +5,5 @@ public class MazeMain {
 
         Maze myMaze = new Maze(10, 10);
 
-        myMaze.mazeGenerator();
     }
 }
