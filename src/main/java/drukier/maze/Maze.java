@@ -42,7 +42,7 @@ public class Maze {
 
         Stack<MazeCell> visit = new Stack<>();
 
-        current = findStartCell();
+        current = getMazeCell(0,0);
 
         while (visitedCells < totalCells ) {
             if (nextCell(current)) {
@@ -59,6 +59,7 @@ public class Maze {
         }
     }
 
+    //if I want to start randomly
     private MazeCell findStartCell() {
         MazeCell start;
 
@@ -108,8 +109,8 @@ public class Maze {
 
                     nextCell = getMazeCell(nextX, nextY);
                     current.setNext(nextCell);
-                    success = true;
                     removeWalls(current, nextCell, direction);
+                    success = true;
                 }
                 //reset current and get next direction
                 else {
@@ -172,14 +173,13 @@ public class Maze {
         public void print () {
 
 
-            for (int i = 1; i < mazeWidth; i++) {
-                System.out.print("_");
+            for (int i = 0; i < mazeWidth; i++) {
+                System.out.print(" _");
             }
-            System.out.print("\n");
-                for (int i = 1; i < mazeWidth; i++) {
+                for (int i = 0; i < mazeWidth; i++) {
                     System.out.println("|");
 
-                    for (int j = 1; j < mazeHeight; j++) {
+                    for (int j = 0; j < mazeHeight; j++) {
                         MazeCell current = maze[i][j];
                         StringBuilder builder = new StringBuilder();
                         if (current.iswWall()) {
@@ -198,6 +198,7 @@ public class Maze {
 
                         System.out.print(builder);
                     }
+
                 }
 
 
