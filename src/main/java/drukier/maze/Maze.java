@@ -83,7 +83,6 @@ public class Maze {
         int doneDirection = 0;
 
         while (nextCell == null && doneDirection < 4) {
-            direction = nextDirection();
 
             switch (direction) {
                 case UP:
@@ -110,13 +109,15 @@ public class Maze {
                     current.setNext(nextCell);
                     success = true;
                     removeWalls(current, nextCell, direction);
+                    direction = nextDirection();
                 }
             }
 
-            //reset current
+            //reset current and get next direction
             else {
                 nextX = current.getCellX();
                 nextY = current.getCellY();
+                direction = nextDirection();
             }
         }
         return success;
