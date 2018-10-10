@@ -9,9 +9,7 @@ public class Maze {
 
     private Random random = new Random();
 
-    private MazeCell start;
     private MazeCell current;
-    private MazeCell next;
 
     private MazeCell[][] maze;
 
@@ -28,9 +26,10 @@ public class Maze {
         this.mazeHeight = mazeHeight;
         totalCells = mazeWidth * mazeHeight;
         maze = new MazeCell[mazeWidth][mazeHeight];
-        for (int i = 0; i < mazeWidth; i++) {
-            for (int j = 0; j < mazeHeight; j++) {
-                maze[i][j] = new MazeCell(i, j);
+        //initialize by filling down and then across instead of across then down like usual
+        for (int y = 0; y < mazeWidth; y++) {
+            for (int x = 0; x < mazeHeight; x++) {
+                maze[x][y] = new MazeCell(x, y);
             }
         }
 
@@ -43,41 +42,47 @@ public class Maze {
 
         Stack<MazeCell> visit = new Stack<>();
 
-        start = findStartCell();
-
-        current = start;
+        current = findStartCell();
 
         while (visitedCells < totalCells) {
-            current.setVisited(true);
             if (nextCell(current)) {
                 visit.push(current);
-                visitedCells++;
+                if (!current.isVisited()) {
+                    visitedCells++;
+                    current.setVisited(true);
+                }
                 current = current.getNext();
             } else {
-                current = visit.pop();
+                if (!visit.isEmpty()) {
+                    current = visit.pop();
+                }
+                else{
+                    System.out.println("visitedCells = " + visitedCells);
+                }
             }
         }
     }
 
     private MazeCell findStartCell() {
+        MazeCell start;
 
-        int cellY = random.nextInt(mazeWidth - 1);
-        int cellX = random.nextInt(mazeHeight - 1);
+        int cellX = random.nextInt(mazeWidth - 1);
+        int cellY = random.nextInt(mazeHeight - 1);
 
-        start = getMazeCell(cellY, cellX);
+        start = getMazeCell(cellX, cellY);
         return start;
 
     }
 
-    private MazeCell getMazeCell(int cellY, int cellX) {
-        return maze[cellY][cellX];
+    private MazeCell getMazeCell(int cellX, int cellY) {
+        return maze[cellX][cellY];
     }
 
     private boolean nextCell(MazeCell current) {
 
         MazeCell nextCell = null;
-        int nextY = current.getCellY();
         int nextX = current.getCellX();
+        int nextY = current.getCellY();
         boolean success = false;
         direction = getDirection();
         int doneDirection = 0;
@@ -103,22 +108,22 @@ public class Maze {
                     break;
             }
 
-            if (mazeContains(nextY, nextX)) {
-                if (!(getMazeCell(nextY, nextX).isVisited())) {
-                    nextCell = getMazeCell(nextY, nextX);
+            if ((mazeContains(nextX, nextY)) && (!(getMazeCell(nextX, nextY).isVisited()))) {
+
+                    nextCell = getMazeCell(nextX, nextY);
                     current.setNext(nextCell);
                     success = true;
                     removeWalls(current, nextCell, direction);
+                }
+                //reset current and get next direction
+                else {
+                    nextX = current.getCellX();
+                    nextY = current.getCellY();
                     direction = nextDirection();
                 }
-            }
 
-            //reset current and get next direction
-            else {
-                nextY = current.getCellY();
-                nextX = current.getCellX();
-                direction = nextDirection();
-            }
+
+
         }
         return success;
     }
@@ -167,7 +172,9 @@ public class Maze {
             StringBuilder builder = new StringBuilder();
 
             for (int i = 1; i < mazeWidth; i++) {
-                //print nWall
+                if (current.isnWall()) {
+                    builder.append("_");
+                }
                 for (int j = 1; j < mazeHeight; j++) {
                     MazeCell current = maze[i][j];
                     if (current.iswWall()) {
@@ -179,8 +186,8 @@ public class Maze {
                     if (current.iseWall()) {
                         builder.append("|");
                     }
-                    builder.append("\n");
                 }
+                builder.append("\n");
             }
             return builder.toString();
         }
