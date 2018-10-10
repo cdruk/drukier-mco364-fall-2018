@@ -82,7 +82,7 @@ public class Maze {
         direction = getDirection();
         int doneDirection = 0;
 
-        while (nextCell == null || doneDirection < 4) {
+        while (nextCell == null && doneDirection < 4) {
             direction = nextDirection();
 
             switch (direction) {
@@ -109,6 +109,7 @@ public class Maze {
                     nextCell = getMazeCell(nextX, nextY);
                     current.setNext(nextCell);
                     success = true;
+                    removeWalls(current, nextCell, direction);
                 }
             }
 
@@ -118,14 +119,13 @@ public class Maze {
                 nextY = current.getCellY();
             }
         }
-        removeWalls(current, nextCell, direction);
         return success;
     }
 
     private boolean mazeContains(int x, int y) {
         boolean valid = false;
         if ((x < mazeWidth) && (y < mazeHeight)) {
-            if ((x > 0) && (y < 0)) {
+            if ((x >= 0) && (y >= 0)) {
                 valid = true;
             }
         }
