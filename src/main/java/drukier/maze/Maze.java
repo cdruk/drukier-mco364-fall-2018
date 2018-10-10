@@ -86,19 +86,19 @@ public class Maze {
 
             switch (direction) {
                 case UP:
-                    nextX--;
+                    nextY--;
                     doneDirection++;
                     break;
                 case DOWN:
-                    nextX++;
-                    doneDirection++;
-                    break;
-                case RIGHT:
                     nextY++;
                     doneDirection++;
                     break;
+                case RIGHT:
+                    nextX++;
+                    doneDirection++;
+                    break;
                 case LEFT:
-                    nextY--;
+                    nextX--;
                     doneDirection++;
                     break;
             }
