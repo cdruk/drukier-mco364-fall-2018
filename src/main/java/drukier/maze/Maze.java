@@ -34,7 +34,7 @@ public class Maze {
         }
 
         mazeGenerator();
-        System.out.println(toString());
+        print();
     }
 
     //must do it all
@@ -44,13 +44,9 @@ public class Maze {
 
         current = findStartCell();
 
-        while (visitedCells < totalCells) {
+        while (visitedCells < totalCells ) {
             if (nextCell(current)) {
                 visit.push(current);
-                if (!current.isVisited()) {
-                    visitedCells++;
-                    current.setVisited(true);
-                }
                 current = current.getNext();
             } else {
                 if (!visit.isEmpty()) {
@@ -125,11 +121,16 @@ public class Maze {
 
 
         }
+        if (!current.isVisited()) {
+            visitedCells++;
+            current.setVisited(true);
+        }
         return success;
     }
 
     private boolean mazeContains(int x, int y) {
         boolean valid = false;
+        //TODO switch?
         if ((x < mazeWidth) && (y < mazeHeight)) {
             if ((x >= 0) && (y >= 0)) {
                 valid = true;
@@ -168,28 +169,38 @@ public class Maze {
             return direction.values()[(direction.ordinal() + 1) % direction.values().length];
         }
 
-        public String toString () {
-            StringBuilder builder = new StringBuilder();
+        public void print () {
+
 
             for (int i = 1; i < mazeWidth; i++) {
-                if (current.isnWall()) {
-                    builder.append("_");
-                }
-                for (int j = 1; j < mazeHeight; j++) {
-                    MazeCell current = maze[i][j];
-                    if (current.iswWall()) {
-                        builder.append("|");
-                    }
-                    if (current.issWall()) {
-                        builder.append("_");
-                    }
-                    if (current.iseWall()) {
-                        builder.append("|");
-                    }
-                }
-                builder.append("\n");
+                System.out.print("_");
             }
-            return builder.toString();
+            System.out.print("\n");
+                for (int i = 1; i < mazeWidth; i++) {
+                    System.out.println("|");
+
+                    for (int j = 1; j < mazeHeight; j++) {
+                        MazeCell current = maze[i][j];
+                        StringBuilder builder = new StringBuilder();
+                        if (current.iswWall()) {
+                            builder.append("|");
+                        }
+                        if (!current.iswWall()) {
+                            builder.append(" ");
+                        }
+
+                        if (current.issWall()) {
+                            builder.append("_");
+                        }
+                        if (!current.issWall()) {
+                            builder.append(" ");
+                        }
+
+                        System.out.print(builder);
+                    }
+                }
+
+
         }
     }
 
