@@ -2,8 +2,8 @@ package drukier.maze;
 
 public class MazeCell {
 
-    private int cellX;
     private int cellY;
+    private int cellX;
 
     private boolean visited = false;
 
@@ -46,9 +46,9 @@ public class MazeCell {
         this.wWall = wWall;
     }
 
-    public MazeCell(int cellX, int cellY){
-        this.cellX = cellX;
+    public MazeCell(int cellY, int cellX){
         this.cellY = cellY;
+        this.cellX = cellX;
     }
 
     public boolean isVisited() {
@@ -59,12 +59,12 @@ public class MazeCell {
         this.visited = visited;
     }
 
-    public int getCellX() {
-        return cellX;
-    }
-
     public int getCellY() {
         return cellY;
+    }
+
+    public int getCellX() {
+        return cellX;
     }
 
     public MazeCell getNext() {

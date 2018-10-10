@@ -61,23 +61,23 @@ public class Maze {
 
     private MazeCell findStartCell() {
 
-        int cellX = random.nextInt(mazeWidth - 1);
-        int cellY = random.nextInt(mazeHeight - 1);
+        int cellY = random.nextInt(mazeWidth - 1);
+        int cellX = random.nextInt(mazeHeight - 1);
 
-        start = getMazeCell(cellX, cellY);
+        start = getMazeCell(cellY, cellX);
         return start;
 
     }
 
-    private MazeCell getMazeCell(int cellX, int cellY) {
-        return maze[cellX][cellY];
+    private MazeCell getMazeCell(int cellY, int cellX) {
+        return maze[cellY][cellX];
     }
 
     private boolean nextCell(MazeCell current) {
 
         MazeCell nextCell = null;
-        int nextX = current.getCellX();
         int nextY = current.getCellY();
+        int nextX = current.getCellX();
         boolean success = false;
         direction = getDirection();
         int doneDirection = 0;
@@ -86,26 +86,26 @@ public class Maze {
 
             switch (direction) {
                 case UP:
-                    nextY--;
+                    nextX--;
                     doneDirection++;
                     break;
                 case DOWN:
-                    nextY++;
-                    doneDirection++;
-                    break;
-                case RIGHT:
                     nextX++;
                     doneDirection++;
                     break;
+                case RIGHT:
+                    nextY++;
+                    doneDirection++;
+                    break;
                 case LEFT:
-                    nextX--;
+                    nextY--;
                     doneDirection++;
                     break;
             }
 
-            if (mazeContains(nextX, nextY)) {
-                if (!(getMazeCell(nextX, nextY).isVisited())) {
-                    nextCell = getMazeCell(nextX, nextY);
+            if (mazeContains(nextY, nextX)) {
+                if (!(getMazeCell(nextY, nextX).isVisited())) {
+                    nextCell = getMazeCell(nextY, nextX);
                     current.setNext(nextCell);
                     success = true;
                     removeWalls(current, nextCell, direction);
@@ -115,8 +115,8 @@ public class Maze {
 
             //reset current and get next direction
             else {
-                nextX = current.getCellX();
                 nextY = current.getCellY();
+                nextX = current.getCellX();
                 direction = nextDirection();
             }
         }
