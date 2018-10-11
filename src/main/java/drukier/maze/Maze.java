@@ -171,34 +171,49 @@ public class Maze {
         }
 
         public void print () {
+
+            StringBuilder builder = new StringBuilder();
             for (int x = 0; x < mazeWidth; x++) {
-                System.out.print(" _");
+                builder.append(" _");
             }
 
                 for (int x = 0; x < mazeWidth; x++) {
-                    System.out.print("\n");
+                    builder.append("\n");
                     for (int y = 0; y < mazeHeight; y++) {
                         MazeCell current = maze[y][x];
-                        StringBuilder builder = new StringBuilder();
+
                         if (current.iswWall()) {
                             builder.append("|");
                         }
-                        if (!current.iswWall()) {
+                        else {
                             builder.append(" ");
                         }
 
                         if (current.issWall()) {
                             builder.append("_");
                         }
-                        if (!current.issWall()) {
+                        else {
                             builder.append(" ");
                         }
 
-                        System.out.print(builder);
                     }
-                    System.out.print("|");
+                    builder.append("|");
                 }
+            System.out.print(builder);
         }
+
+    public int getMazeWidth() {
+        return mazeWidth;
+    }
+
+    public int getMazeHeight() {
+        return mazeHeight;
+    }
+
+    public MazeCell[][] getMaze() {
+        return maze;
+    }
+
     }
 
 
