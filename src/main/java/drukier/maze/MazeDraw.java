@@ -17,19 +17,26 @@ public class MazeDraw extends JComponent {
 
         myMaze = new Maze(10, 10);
 
-            height = this.getHeight();
-            width = this.getWidth();
+        height = this.getHeight();
+        width = this.getWidth();
 
-            g.setColor(Color.black);
+        g.setColor(Color.black);
 
-            paintMaze(g);
+        paintMaze(g);
 
-        }
+    }
 
-        void paintMaze (Graphics g){
-           g.drawLine(1, 2, 3, 4);
-
+    void paintMaze(Graphics g) {
+        for (MazeCell x[] : myMaze.getMaze()) {
+            for (MazeCell y : x) {
+                MazeCell mazeCell = myMaze.getMaze()[y][x];
+                if (mazeCell.iswWall()){
+                    g.drawLine(getX(), getY() + getY() * 5, getX() , getY() * 5);
+                }
             }
 
-
         }
+
+
+    }
+}
