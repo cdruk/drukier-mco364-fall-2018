@@ -13,6 +13,9 @@ public class MazeGame extends JFrame {
 
         panel.setLayout(new BorderLayout());
 
+        int margin = 10;
+        panel.setBorder(BorderFactory.createEmptyBorder(margin, margin, margin, margin));
+
         panel.add(new MazeDraw(), BorderLayout.CENTER);
 
 

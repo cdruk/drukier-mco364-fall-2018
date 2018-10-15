@@ -6,11 +6,11 @@ import java.awt.*;
 public class MazeDraw extends JComponent {
 
     Maze myMaze;
-    int height;
     int width;
+    int height;
 
-    int lineHeight;
     int lineWidth;
+    int lineHeight;
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -20,6 +20,10 @@ public class MazeDraw extends JComponent {
         height = this.getHeight();
         width = this.getWidth();
 
+        lineWidth = width/myMaze.getMazeWidth();
+        lineHeight = height/myMaze.getMazeHeight();
+
+
         g.setColor(Color.black);
 
         paintMaze(g);
@@ -27,14 +31,30 @@ public class MazeDraw extends JComponent {
     }
 
     void paintMaze(Graphics g) {
-        for (MazeCell x[] : myMaze.getMaze()) {
-            for (MazeCell y : x) {
-                MazeCell mazeCell = myMaze.getMaze()[y][x];
-                if (mazeCell.iswWall()){
-                    g.drawLine(getX(), getY() + getY() * 5, getX() , getY() * 5);
-                }
-            }
 
+        for (int x = 0; x < myMaze.getMazeWidth(); x++) {
+            for (int y = 0; y < myMaze.getMazeHeight(); y++) {
+
+                MazeCell current = myMaze.getMaze()[x][y];
+
+                int drawX = x * lineWidth;
+                int drawY = y * lineHeight;
+
+                if(current.isnWall()){
+                    g.drawLine(drawX, drawY, drawX + lineWidth, drawY);
+                }
+                if(current.iswWall()) {
+                    g.drawLine(drawX, drawY, drawX, drawY +lineHeight);
+                }
+                if(current.issWall()) {
+                    g.drawLine(drawX, drawY + lineHeight, drawX + lineWidth, drawY + lineHeight);
+                }
+                if(current.iseWall()) {
+                    g.drawLine(drawX + lineWidth, drawY, drawX + lineWidth, drawY + lineHeight);
+                }
+
+
+            }
         }
 
 

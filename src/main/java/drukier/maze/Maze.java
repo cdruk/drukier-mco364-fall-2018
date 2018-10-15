@@ -34,7 +34,9 @@ public class Maze {
         }
 
         mazeGenerator();
-        print();
+        getMazeCell(0,0).setwWall(false);
+        getMazeCell(mazeWidth - 1,mazeWidth - 1).seteWall(false);
+        //print();
     }
 
     //must do it all
@@ -51,9 +53,6 @@ public class Maze {
             } else {
                 if (!visit.isEmpty()) {
                     current = visit.pop();
-                }
-                else{
-                    System.out.println("visitedCells = " + visitedCells);
                 }
             }
         }
@@ -130,14 +129,7 @@ public class Maze {
     }
 
     private boolean mazeContains(int x, int y) {
-        boolean valid = false;
-        //TODO switch?
-        if ((x < mazeWidth) && (y < mazeHeight)) {
-            if ((x >= 0) && (y >= 0)) {
-                valid = true;
-            }
-        }
-        return valid;
+        return (x < mazeWidth) && (y < mazeHeight) && (x >= 0) && (y >= 0);
     }
 
         private void removeWalls (MazeCell current, MazeCell next, Direction direction){
@@ -195,7 +187,6 @@ public class Maze {
                         else {
                             builder.append(" ");
                         }
-
                     }
                     builder.append("|");
                 }
