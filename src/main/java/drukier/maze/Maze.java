@@ -71,7 +71,7 @@ public class Maze {
 
     }
 
-    protected MazeCell getMazeCell(int cellX, int cellY) {
+     MazeCell getMazeCell(int cellX, int cellY) {
         return maze[cellX][cellY];
     }
 
@@ -129,7 +129,7 @@ public class Maze {
         return success;
     }
 
-    protected boolean mazeContains(int x, int y) {
+    private boolean mazeContains(int x, int y) {
         return (x < mazeWidth) && (y < mazeHeight) && (x >= 0) && (y >= 0);
     }
 
@@ -159,7 +159,7 @@ public class Maze {
             return Direction.values()[random.nextInt(Direction.values().length)];
         }
 
-        public Direction nextDirection () {
+        private Direction nextDirection () {
             return direction.values()[(direction.ordinal() + 1) % direction.values().length];
         }
 
