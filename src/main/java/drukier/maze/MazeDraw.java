@@ -5,37 +5,34 @@ import java.awt.*;
 
 public class MazeDraw extends JComponent {
 
-    Maze maze;
-    MazePlayer player;
+    private Maze maze;
+    private MazePlayer player;
 
-    int width;
-    int height;
+    private double lineWidth;
+    private double lineHeight;
 
-    double lineWidth;
-    double lineHeight;
-
-    public MazeDraw(Maze maze, MazePlayer player) {
+    MazeDraw(Maze maze, MazePlayer player) {
         this.maze = maze;
         this.player = player;
     }
 
-    public MazePlayer getPlayer() {
+    MazePlayer getPlayer() {
         return player;
     }
 
-    public double getLineWidth() {
+    double getLineWidth() {
         return lineWidth;
     }
 
-    public double getLineHeight() {
+    double getLineHeight() {
         return lineHeight;
     }
 
     @Override
     protected void paintComponent(Graphics g) {
 
-        height = this.getHeight() - 10;
-        width = this.getWidth() - 10;
+        int height = this.getHeight() - 10;
+        int width = this.getWidth() - 10;
 
         lineWidth = width / maze.getMazeWidth();
         lineHeight = height / maze.getMazeHeight();
@@ -78,9 +75,9 @@ public class MazeDraw extends JComponent {
 
     }
 
-    protected void paintPlayer(Graphics g) {
+    private void paintPlayer(Graphics g) {
         g.setColor(Color.blue);
-        g.fillOval((player.getPlayerX() + (int) lineWidth/2), (player.getPlayerY()+ (int) lineHeight/2), 10,10);
+        g.fillOval((player.getPlayerX() + (int) lineWidth / 2), (player.getPlayerY() + (int) lineHeight / 2), 10, 10);
     }
 
 }

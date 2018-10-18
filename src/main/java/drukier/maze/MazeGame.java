@@ -7,13 +7,13 @@ import java.awt.event.KeyEvent;
 
 public class MazeGame extends JFrame {
 
-    Maze maze;
-    MazePlayer player;
-    MazeDraw mazeDraw;
-    int mazeWidth = 20;
-    int mazeHeight = 20;
+    private Maze maze;
+    private MazePlayer player;
+    private MazeDraw mazeDraw;
+    private int mazeWidth = 20;
+    private int mazeHeight = 20;
 
-    public MazeGame() {
+    private MazeGame() {
         setTitle("Maze");
         setSize(600, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -68,7 +68,7 @@ public class MazeGame extends JFrame {
     }
 
     private void movePlayer(MazePlayer myPlayer, int direction) {
-        MazeCell first = maze.getMazeCell(0,0);
+        MazeCell first = maze.getMazeCell(0, 0);
         MazeCell last = maze.getMazeCell(mazeWidth - 1, mazeHeight - 1);
         switch (direction) {
             case KeyEvent.VK_UP:
