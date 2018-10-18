@@ -36,7 +36,8 @@ public class Maze {
         mazeGenerator();
         getMazeCell(0,0).setwWall(false);
         getMazeCell(mazeWidth - 1,mazeWidth - 1).seteWall(false);
-        //print();
+//        getMazeCell(mazeWidth - 1,mazeWidth - 1).setsWall(false);
+//        print();
     }
 
     //must do it all
@@ -205,7 +206,12 @@ public class Maze {
         return maze;
     }
 
+    public MazeCell getStart() {
+        return getMazeCell(0, 0);
     }
+
+    }
+
 
 
 
