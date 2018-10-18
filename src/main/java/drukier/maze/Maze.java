@@ -71,7 +71,7 @@ public class Maze {
 
     }
 
-    private MazeCell getMazeCell(int cellX, int cellY) {
+    protected MazeCell getMazeCell(int cellX, int cellY) {
         return maze[cellX][cellY];
     }
 
@@ -129,7 +129,7 @@ public class Maze {
         return success;
     }
 
-    private boolean mazeContains(int x, int y) {
+    protected boolean mazeContains(int x, int y) {
         return (x < mazeWidth) && (y < mazeHeight) && (x >= 0) && (y >= 0);
     }
 
@@ -206,9 +206,6 @@ public class Maze {
         return maze;
     }
 
-    public MazeCell getStart() {
-        return getMazeCell(0, 0);
-    }
 
     }
 

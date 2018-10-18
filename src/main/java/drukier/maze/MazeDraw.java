@@ -2,12 +2,10 @@ package drukier.maze;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class MazeDraw extends JComponent {
 
-    Maze myMaze;
+    Maze maze;
     MazePlayer player;
 
     int width;
@@ -16,35 +14,46 @@ public class MazeDraw extends JComponent {
     double lineWidth;
     double lineHeight;
 
-    public MazeDraw(int mazeWidth,int mazeHeight) {
-        myMaze = new Maze(mazeWidth, mazeHeight);
+    public MazeDraw(Maze maze, MazePlayer player) {
+        this.maze = maze;
+        this.player = player;
+    }
+
+    public MazePlayer getPlayer() {
+        return player;
+    }
+
+    public double getLineWidth() {
+        return lineWidth;
+    }
+
+    public double getLineHeight() {
+        return lineHeight;
     }
 
     @Override
     protected void paintComponent(Graphics g) {
 
-        height = this.getHeight();
-        width = this.getWidth();
+        height = this.getHeight() - 10;
+        width = this.getWidth() - 10;
 
-        lineWidth = width / myMaze.getMazeWidth();
-        lineHeight = height / myMaze.getMazeHeight();
+        lineWidth = width / maze.getMazeWidth();
+        lineHeight = height / maze.getMazeHeight();
 
 
         g.setColor(Color.black);
 
         paintMaze(g);
-        player = new MazePlayer(myMaze.getStart().getCellX() + (int) lineWidth/2,
-                myMaze.getStart().getCellY() + (int) lineHeight/2);
-        player.paintPlayer(g);
+        paintPlayer(g);
 
     }
 
     private void paintMaze(Graphics g) {
 
-        for (int x = 0; x < myMaze.getMazeWidth(); x++) {
-            for (int y = 0; y < myMaze.getMazeHeight(); y++) {
+        for (int x = 0; x < maze.getMazeWidth(); x++) {
+            for (int y = 0; y < maze.getMazeHeight(); y++) {
 
-                MazeCell current = myMaze.getMaze()[x][y];
+                MazeCell current = maze.getMaze()[x][y];
 
                 double drawX = x * lineWidth;
                 double drawY = y * lineHeight;
@@ -67,6 +76,11 @@ public class MazeDraw extends JComponent {
         }
 
 
+    }
+
+    protected void paintPlayer(Graphics g) {
+        g.setColor(Color.blue);
+        g.fillOval((player.getPlayerX() + (int) lineWidth/2), (player.getPlayerY()+ (int) lineHeight/2), 10,10);
     }
 
 }
