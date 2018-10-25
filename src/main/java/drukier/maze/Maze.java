@@ -1,170 +1,212 @@
 package drukier.maze;
 
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
-import java.util.Stack;
+import java.util.*;
 
 public class Maze {
 
-    private int mazeHeight = 10;
-    private int mazeWidth = 10;
+    private int mazeWidth;
+    private int mazeHeight;
 
-    MazeCell start;
-
-
-    MazeCell[][] array;
-
-    int visitedCells = 0;
-    int totalCells = getMazeHeight() * getMazeWidth();
+    private Random random = new Random();
 
 
-//    public Maze(int length, int width) {
-//        mazeHeight = length;
-//        mazeWidth = width;
-//
-//        maze = new MazeCell[mazeHeight][mazeWidth];
-//
-//    }
+    private MazeCell[][] maze;
 
-    public int getMazeHeight() {
-        return mazeHeight;
-    }
+    private int visitedCells = 0;
+    private int totalCells;
 
-    public void setMazeHeight(int mazeHeight) {
+    private enum Direction {UP, DOWN, RIGHT, LEFT;}
+
+    private Direction direction;
+
+    Maze(int mazeWidth, int mazeHeight) {
+
+        this.mazeWidth = mazeWidth;
         this.mazeHeight = mazeHeight;
+        totalCells = mazeWidth * mazeHeight;
+        maze = new MazeCell[mazeWidth][mazeHeight];
+        //initialize by filling down and then across instead of across then down like usual
+        for (int y = 0; y < mazeWidth; y++) {
+            for (int x = 0; x < mazeHeight; x++) {
+                maze[x][y] = new MazeCell(x, y);
+            }
+        }
+
+        mazeGenerator();
+        getMazeCell(0, 0).setwWall(false);
+        getMazeCell(mazeWidth - 1, mazeWidth - 1).seteWall(false);
+//        getMazeCell(mazeWidth - 1,mazeWidth - 1).setsWall(false);
+//        print();
     }
 
-    public int getMazeWidth() {
+    //must do it all
+    public void mazeGenerator() {
+
+        Stack<MazeCell> visit = new Stack<>();
+
+        MazeCell current = getMazeCell(0, 0);
+
+        while (visitedCells < totalCells) {
+            if (nextCell(current)) {
+                visit.push(current);
+                current = current.getNext();
+            } else {
+                if (!visit.isEmpty()) {
+                    current = visit.pop();
+                }
+            }
+        }
+    }
+
+    //if I want to start randomly
+    private MazeCell findStartCell() {
+        MazeCell start;
+
+        int cellX = random.nextInt(mazeWidth - 1);
+        int cellY = random.nextInt(mazeHeight - 1);
+
+        start = getMazeCell(cellX, cellY);
+        return start;
+
+    }
+
+    MazeCell getMazeCell(int cellX, int cellY) {
+        return maze[cellX][cellY];
+    }
+
+    private boolean nextCell(MazeCell current) {
+
+        MazeCell nextCell = null;
+        int nextX = current.getCellX();
+        int nextY = current.getCellY();
+        boolean success = false;
+        direction = getDirection();
+        int doneDirection = 0;
+
+        while (nextCell == null && doneDirection < 4) {
+
+            switch (direction) {
+                case UP:
+                    nextY--;
+                    doneDirection++;
+                    break;
+                case DOWN:
+                    nextY++;
+                    doneDirection++;
+                    break;
+                case RIGHT:
+                    nextX++;
+                    doneDirection++;
+                    break;
+                case LEFT:
+                    nextX--;
+                    doneDirection++;
+                    break;
+            }
+
+            if ((mazeContains(nextX, nextY)) && (!(getMazeCell(nextX, nextY).isVisited()))) {
+
+                nextCell = getMazeCell(nextX, nextY);
+                current.setNext(nextCell);
+                removeWalls(current, nextCell, direction);
+                success = true;
+            }
+            //reset current and get next direction
+            else {
+                nextX = current.getCellX();
+                nextY = current.getCellY();
+                direction = nextDirection();
+            }
+
+
+        }
+        if (!current.isVisited()) {
+            visitedCells++;
+            current.setVisited(true);
+        }
+        return success;
+    }
+
+    private boolean mazeContains(int x, int y) {
+        return (x < mazeWidth) && (y < mazeHeight) && (x >= 0) && (y >= 0);
+    }
+
+    private void removeWalls(MazeCell current, MazeCell next, Direction direction) {
+        switch (direction) {
+            case UP:
+                current.setnWall(false);
+                next.setsWall(false);
+                break;
+            case DOWN:
+                current.setsWall(false);
+                next.setnWall(false);
+                break;
+            case RIGHT:
+                current.seteWall(false);
+                next.setwWall(false);
+                break;
+            case LEFT:
+                current.setwWall(false);
+                next.seteWall(false);
+                break;
+        }
+    }
+
+    private Direction getDirection() {
+
+        return Direction.values()[random.nextInt(Direction.values().length)];
+    }
+
+    private Direction nextDirection() {
+        return direction.values()[(direction.ordinal() + 1) % direction.values().length];
+    }
+
+    public void print() {
+
+        StringBuilder builder = new StringBuilder();
+        for (int x = 0; x < mazeWidth; x++) {
+            builder.append(" _");
+        }
+
+        for (int x = 0; x < mazeWidth; x++) {
+            builder.append("\n");
+            for (int y = 0; y < mazeHeight; y++) {
+                MazeCell current = maze[y][x];
+
+                if (current.iswWall()) {
+                    builder.append("|");
+                } else {
+                    builder.append(" ");
+                }
+
+                if (current.issWall()) {
+                    builder.append("_");
+                } else {
+                    builder.append(" ");
+                }
+            }
+            builder.append("|");
+        }
+        System.out.print(builder);
+    }
+
+    int getMazeWidth() {
         return mazeWidth;
     }
 
-    public void setMazeWidth(int mazeWidth) {
-        this.mazeWidth = mazeWidth;
+    int getMazeHeight() {
+        return mazeHeight;
     }
 
-    public MazeCell getStart() {
-        return start;
+    MazeCell[][] getMaze() {
+        return maze;
     }
-
-    public void setStart(MazeCell start) {
-        this.start = start;
-    }
-
-    public static void main(String[] args) {
-
-        Maze maze = new Maze();
-        maze.mazeGenerator();
-    }
-
-    public MazeCell[][] mazeGenerator() {
-
-        Stack<MazeCell> visit = new Stack<MazeCell>();
-
-        start = findStartCell();
-
-        MazeCell current = start;
-
-        while (visitedCells < totalCells) {
-
-            //get neighbors
-            current = getNextCell(current);
-
-            // Chooses a neighbor to visit
-            // current = chooseNext();
-
-            if (!current.isVisited()) {
-                visit.push(current);
-                visitedCells++;
-                current.setVisited(true);
-                getNextCell(current);
-            }
-
-            if (current.isVisited()) {
-                getNextCell(current);
-            }
-
-        }
-        return array;
-
-    }
-
-    private MazeCell findStartCell() {
-        Random currentX = new Random();
-        Random currentY = new Random();
-
-        int cellX = currentX.nextInt(mazeHeight - 1);
-        int cellY = currentY.nextInt(mazeWidth - 1);
-
-        start = new MazeCell(cellX, cellY);
-        return start;
-
-    }
-
-
-    private MazeCell getNextCell(MazeCell cell) {
-
-        ArrayList<MazeCell> neighbors = null;
-
-        MazeCell top = null;
-        MazeCell bottom = null;
-        MazeCell left = null;
-        MazeCell right = null;
-
-
-        if ((cell.getCellX() - 1) > 0 && (cell.getCellX() - 1) < mazeHeight) {
-            top = new MazeCell(cell.getCellX() - 1, cell.getCellY());
-        }
-
-        if ((cell.getCellX() + 1) > 0 && (cell.getCellX() + 1) < mazeHeight) {
-            bottom = new MazeCell(cell.getCellX() + 1, cell.getCellY());
-        }
-
-        if ((cell.getCellY() - 1) > 0 && (cell.getCellY() - 1) < mazeHeight) {
-            left = new MazeCell(cell.getCellX(), cell.getCellY() - 1);
-        }
-
-        if ((cell.getCellX() + 1) > 0 && (cell.getCellX() + 1) < mazeHeight) {
-            right = new MazeCell(cell.getCellX(), cell.getCellY() + 1);
-        }
-
-        neighbors.add(top);
-        neighbors.add(bottom);
-        neighbors.add(left);
-        neighbors.add(right);
-
-        // Chooses a neighbor to visit
-        cell = chooseNext(neighbors);
-
-        return cell;
-
-    }
-
-    private MazeCell chooseNext(ArrayList<MazeCell> neighbors) {
-        Collections.shuffle(neighbors);
-        return neighbors.get(0);
-
-    }
-    //pick cell
-    //check visited
-    //yes - pick neighbor and move
-    //no - mark visited, pick neighbor, remove wall, move
-    //cant move? check if all visited
-    // yes - print
-    //no - backtrack
-
-//        Randomly select a node (or cell) N.
-//                Push the node N onto a queue Q.
-//                Mark the cell N as visited.
-//                Randomly select an adjacent cell A of node N that has not been visited. If all the neighbors of N have been visited:
-//        Continue to pop items off the queue Q until a node is encountered with at least one non-visited neighbor - assign this node to N and go to step 4.
-//        If no nodes exist: stop.
-//                Break the wall between N and A.
-//        Assign the value A to N.
-//        Go to step 2.
 
 
 }
+
+
+
+
 
 

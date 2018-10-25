@@ -8,8 +8,11 @@ import drukier.earthquake.net.EarthquakeModule;
 
 import javax.inject.Singleton;
 import javax.swing.*;
+
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 import java.io.FileNotFoundException;
 import java.util.List;
 
@@ -42,10 +45,12 @@ public class EarthquakeView extends JFrame  {
             EarthquakeProperties properties = earthquakes.get(i).getProperties();
 
             String earthquakeValue = properties.getMag() + " " + properties.getPlace();
+
             showEarthquakeInfo[i].setText(earthquakeValue);
         }
 
     }
+
 
     public static void main(String[] args) throws FileNotFoundException {
 

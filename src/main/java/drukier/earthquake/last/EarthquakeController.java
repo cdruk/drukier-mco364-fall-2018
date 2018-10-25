@@ -48,8 +48,10 @@ public class EarthquakeController {
 
     }
 
+
     private void showLargestEarthquakes(List<Earthquake> list) {
         List<Earthquake> earthquakes = list
+
                 .stream()
                 .filter(earthquake -> earthquake.getProperties().getMag() >= 1)
                 .sorted(Comparator.comparing(Earthquake::getMagnitude).reversed())
