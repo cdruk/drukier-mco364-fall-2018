@@ -32,13 +32,13 @@ public class MazeGame extends JFrame {
         mazeDraw = new MazeDraw(maze, player);
         panel.add(mazeDraw, BorderLayout.CENTER);
 
-        addKeyListener(new MyKeyAdapter());
+        addKeyListener(new DirectionPressAdapter());
 
         setContentPane(panel);
 
     }
 
-    class MyKeyAdapter extends KeyAdapter {
+    class DirectionPressAdapter extends KeyAdapter {
 
         @Override
         public void keyPressed(KeyEvent keyEvent) {
