@@ -8,6 +8,11 @@ import drukier.earthquake.net.EarthquakeModule;
 
 import javax.inject.Singleton;
 import javax.swing.*;
+
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import java.io.FileNotFoundException;
 import java.util.List;
 
@@ -40,10 +45,12 @@ public class EarthquakeView extends JFrame  {
             EarthquakeProperties properties = earthquakes.get(i).getProperties();
 
             String earthquakeValue = properties.getMag() + " " + properties.getPlace();
-                showEarthquakeInfo[i].setText(earthquakeValue);
-            }
 
+            showEarthquakeInfo[i].setText(earthquakeValue);
         }
+
+    }
+
 
     public static void main(String[] args) throws FileNotFoundException {
 
@@ -53,9 +60,14 @@ public class EarthquakeView extends JFrame  {
 
         drukier.earthquake.last.EarthquakeController controller = injector.getInstance(drukier.earthquake.last.EarthquakeController.class);
 
-        timer = new Timer(30_000, (event) -> controller.refreshData());
-        timer.setInitialDelay(0);
-        timer.start();
+        controller.refreshData();
+
+        view.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                controller.stop();
+            }
+        });
 
         view.setVisible(true);
     }
