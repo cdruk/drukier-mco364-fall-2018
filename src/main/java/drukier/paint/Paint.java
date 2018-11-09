@@ -18,8 +18,17 @@ public class Paint extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
-        JButton button = new JButton("Colors");
-        button.addActionListener(e -> {
+        JPanel toolbox = new JPanel();
+        toolbox.setLayout(new GridLayout());
+
+        JButton pencil = new JButton("Pencil");
+        pencil.addActionListener(e ->{canvas.setTool(PaintTool.Pencil);});
+
+        JButton rectangle = new JButton("Rectangle");
+        rectangle.addActionListener(e ->{canvas.setTool(PaintTool.Rectangle);});
+
+        JButton color = new JButton("Colors");
+        color.addActionListener(e -> {
             Color newColor = JColorChooser.showDialog(
                     Paint.this,
                     "Choose Background Color",
@@ -27,8 +36,12 @@ public class Paint extends JFrame {
             canvas.setCurrentColor(newColor);
         });
 
+        toolbox.add(pencil);
+        toolbox.add(rectangle);
+        toolbox.add(color);
+
         panel.add(canvas, BorderLayout.CENTER);
-        panel.add(button, BorderLayout.NORTH);
+        panel.add(toolbox, BorderLayout.NORTH);
 
         setContentPane(panel);
     }
