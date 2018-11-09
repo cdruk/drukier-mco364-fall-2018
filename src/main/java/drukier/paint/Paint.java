@@ -2,16 +2,13 @@ package drukier.paint;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Paint extends JFrame {
 
-    private int canvasHeight = 550;
-    private int canvasWidth = 550;
+    private Canvas canvas = new Canvas();
 
-    private Canvas canvas = new Canvas(canvasHeight, canvasWidth);
 
     public Paint() {
         setTitle("Paint");
@@ -21,28 +18,23 @@ public class Paint extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
-        panel.add(canvas);
+        JButton button = new JButton("Colors");
+        button.addActionListener(e -> {
+            Color newColor = JColorChooser.showDialog(
+                    Paint.this,
+                    "Choose Background Color",
+                    canvas.getCurrentColor());
+            canvas.setCurrentColor(newColor);
+        });
 
-        canvas.addMouseMotionListener(pencilDrag);
+        panel.add(canvas, BorderLayout.CENTER);
+        panel.add(button, BorderLayout.NORTH);
 
         setContentPane(panel);
     }
 
-    MouseMotionListener pencilDrag = new MouseMotionListener() {
-        @Override
-        public void mouseDragged(MouseEvent e) {
-            canvas.setLoc(e.getX(), e.getY());
-            repaint();
 
-        }
-
-        @Override
-        public void mouseMoved(MouseEvent e) {
-
-        }
-    };
-
-    public static void main(String [] args){
+    public static void main(String[] args) {
         new Paint().setVisible(true);
     }
 }
