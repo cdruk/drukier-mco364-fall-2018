@@ -5,12 +5,10 @@ import java.awt.*;
 public class Dot {
     private int dotX;
     private int dotY;
-    private Color color;
 
-    public Dot(int dotX, int dotY, Color color) {
+    public Dot(int dotX, int dotY) {
         this.dotX = dotX;
         this.dotY = dotY;
-        this.color = color;
     }
 
     public int getDotX() {
@@ -21,11 +19,4 @@ public class Dot {
         return dotY;
     }
 
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
 }

@@ -10,18 +10,9 @@ import java.util.ArrayList;
 public class Canvas extends JComponent
         implements MouseListener, MouseMotionListener {
 
-
-    //private ArrayList<ArrayList<Dot>> lines = new ArrayList<>();
-
-    //private ArrayList<Dot> points;
-
-    //private ArrayList<Rectangle> rectangles = new ArrayList<>();
-
     private ArrayList<Shape> shapes = new ArrayList<>();
 
-    private int currentShape = 0;
-
-    //private int drawOrder = 0;
+    private int currentShape = -1;
 
     private PaintTool tool = PaintTool.Pencil;
 
@@ -37,40 +28,34 @@ public class Canvas extends JComponent
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        paintDot(g);
+        paintShapes(g);
 
     }
 
-    private void paintDot(Graphics g) {
+    private void paintShapes(Graphics g) {
 
-        for (Shape shape: shapes){
-            g.setColor(shape.getColor());
-            switch (shape.getTool()){
-                case Pencil:
-                    ArrayList<Dot> points = ((Line)shape).getPoints();
-                    for (int i = 1; i < points.size(); i++) {
-                        g.drawLine(
-                                points.get(i).getDotX(), points.get(i).getDotY(),
-                                points.get(i - 1).getDotX(), points.get(i - 1).getDotY());
-                    }
-                    break;
-                case Rectangle:
-                    Rectangle rectangle = ((Rectangle)shape);
-                    g.drawRect(rectangle.getX(), rectangle.getY(),
+        if (!shapes.isEmpty()) {
+            for (Shape shape : shapes) {
+                g.setColor(shape.getColor());
+                switch (shape.getTool()) {
+                    case Pencil:
+                        ArrayList<Dot> points = ((Line) shape).getPoints();
+                        for (int i = 1; i < points.size(); i++) {
+                            g.drawLine(
+                                    points.get(i).getDotX(), points.get(i).getDotY(),
+                                    points.get(i - 1).getDotX(), points.get(i - 1).getDotY());
+                        }
+                        break;
+                    case Rectangle:
+                        Rectangle rectangle = ((Rectangle) shape);
+                        g.drawRect(rectangle.getX(), rectangle.getY(),
                                 rectangle.getWidth(), rectangle.getHeight());
-                    break;
+                        break;
+                }
             }
         }
 
 
-
-        }
-
-
-
-
-    public PaintTool getTool() {
-        return tool;
     }
 
     public void setTool(PaintTool tool) {
@@ -92,19 +77,27 @@ public class Canvas extends JComponent
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (tool == PaintTool.Pencil){
-        shapes.add(new Line());
+
+        if (tool == PaintTool.Pencil) {
+            Line line = new Line(currentColor);
+            line.setTool(PaintTool.Pencil);
+            ArrayList<Dot> points = new ArrayList<>();
+            line.setPoints(points);
+            shapes.add(line);
+            currentShape++;
         }
 
-        if(tool == PaintTool.Rectangle){
+        if (tool == PaintTool.Rectangle) {
             Rectangle rect = new Rectangle(e.getX(), e.getY(), currentColor);
+            rect.setTool(PaintTool.Rectangle);
             shapes.add(rect);
+            currentShape++;
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if(tool == PaintTool.Rectangle){
+        if (tool == PaintTool.Rectangle) {
             ((Rectangle) shapes.get(currentShape)).setEndX(e.getX());
             ((Rectangle) shapes.get(currentShape)).setEndY(e.getY());
             repaint();
@@ -123,16 +116,18 @@ public class Canvas extends JComponent
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if (tool == PaintTool.Pencil) {
-//            if (!shapes.isEmpty()) {
-//                shapes.get(shapes.size() - 1)
-//                        .add(new Line());//(e.getX(), e.getY(), currentColor));
-//                repaint();
-//            }
-        }
+        if (!shapes.isEmpty()) {
+            if (tool == PaintTool.Pencil) {
+                ArrayList<Dot> points = ((Line) shapes.get(currentShape)).getPoints();
+                points.add(new Dot(e.getX(), e.getY()));
+                repaint();
+            }
 
-        if(tool == PaintTool.Rectangle){
-
+            if (tool == PaintTool.Rectangle) {
+                ((Rectangle) shapes.get(currentShape)).setEndX(e.getX());
+                ((Rectangle) shapes.get(currentShape)).setEndY(e.getY());
+                repaint();
+            }
         }
     }
 

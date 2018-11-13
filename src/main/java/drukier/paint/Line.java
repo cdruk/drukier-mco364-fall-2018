@@ -6,10 +6,10 @@ import java.util.ArrayList;
 public class Line extends Shape{
     private ArrayList<Dot> points;
 
-    @Override
-    public void setColor(Color color) {
+    public Line(Color color) {
         setColor(color);
     }
+
 
     public ArrayList<Dot> getPoints() {
         return points;
