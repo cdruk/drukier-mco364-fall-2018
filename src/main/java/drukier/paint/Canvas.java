@@ -33,7 +33,6 @@ public class Canvas extends JComponent
     }
 
     private void paintShapes(Graphics g) {
-
         if (!shapes.isEmpty()) {
             for (Shape shape : shapes) {
                 g.setColor(shape.getColor());
@@ -48,7 +47,7 @@ public class Canvas extends JComponent
                         break;
                     case Rectangle:
                         Rectangle rectangle = ((Rectangle) shape);
-                        g.drawRect(rectangle.getX(), rectangle.getY(),
+                        g.drawRect(rectangle.getTopLeftX(), rectangle.getTopLeftY(),
                                 rectangle.getWidth(), rectangle.getHeight());
                         break;
                 }

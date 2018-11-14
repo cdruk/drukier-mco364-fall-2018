@@ -2,7 +2,7 @@ package drukier.paint;
 
 import java.awt.*;
 
-public class Rectangle extends Shape{
+public class Rectangle extends Shape {
 
     private int x;
     private int y;
@@ -10,6 +10,8 @@ public class Rectangle extends Shape{
     private int endY;
     private int width;
     private int height;
+    private int topLeftX;
+    private int topLeftY;
 
 
     public Rectangle(int x, int y, Color color) {
@@ -40,7 +42,8 @@ public class Rectangle extends Shape{
 
     public void setEndX(int endX) {
         this.endX = endX;
-        setWidth(endX - x);
+        setWidth(Math.abs(endX - x));
+        setTopLeftX();
     }
 
     public int getEndY() {
@@ -49,7 +52,8 @@ public class Rectangle extends Shape{
 
     public void setEndY(int endY) {
         this.endY = endY;
-        setHeight(endY - y);
+        setHeight(Math.abs(endY - y));
+        setTopLeftY();
     }
 
     public int getWidth() {
@@ -66,5 +70,31 @@ public class Rectangle extends Shape{
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public void setTopLeftX() {
+        if (x < endX || x == endX) {
+            topLeftX = x;
+        } else {
+            topLeftX = endX;
+            endX = x;
+        }
+    }
+
+    public void setTopLeftY() {
+        if (y < endY || y == endY) {
+            topLeftY = y;
+        } else {
+            topLeftY = endY;
+            endY = y;
+        }
+    }
+
+    public int getTopLeftX() {
+        return topLeftX;
+    }
+
+    public int getTopLeftY() {
+        return topLeftY;
     }
 }
