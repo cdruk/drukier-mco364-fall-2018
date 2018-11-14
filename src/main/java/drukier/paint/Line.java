@@ -10,7 +10,6 @@ public class Line extends Shape{
         setColor(color);
     }
 
-
     public ArrayList<Dot> getPoints() {
         return points;
     }

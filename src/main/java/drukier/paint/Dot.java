@@ -1,7 +1,5 @@
 package drukier.paint;
 
-import java.awt.*;
-
 public class Dot {
     private int dotX;
     private int dotY;

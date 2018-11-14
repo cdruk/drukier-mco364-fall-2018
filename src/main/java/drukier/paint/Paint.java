@@ -2,8 +2,6 @@ package drukier.paint;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Paint extends JFrame {
 
@@ -31,7 +29,7 @@ public class Paint extends JFrame {
         color.addActionListener(e -> {
             Color newColor = JColorChooser.showDialog(
                     Paint.this,
-                    "Choose Background Color",
+                    "Choose Paint Color",
                     canvas.getCurrentColor());
             canvas.setCurrentColor(newColor);
         });

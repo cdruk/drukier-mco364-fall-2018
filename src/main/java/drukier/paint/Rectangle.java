@@ -20,34 +20,10 @@ public class Rectangle extends Shape {
         setColor(color);
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public int getEndX() {
-        return endX;
-    }
-
     public void setEndX(int endX) {
         this.endX = endX;
         setWidth(Math.abs(endX - x));
         setTopLeftX();
-    }
-
-    public int getEndY() {
-        return endY;
     }
 
     public void setEndY(int endY) {
@@ -72,7 +48,7 @@ public class Rectangle extends Shape {
         this.height = height;
     }
 
-    public void setTopLeftX() {
+    private void setTopLeftX() {
         if (x < endX || x == endX) {
             topLeftX = x;
         } else {
@@ -81,7 +57,7 @@ public class Rectangle extends Shape {
         }
     }
 
-    public void setTopLeftY() {
+    private void setTopLeftY() {
         if (y < endY || y == endY) {
             topLeftY = y;
         } else {
