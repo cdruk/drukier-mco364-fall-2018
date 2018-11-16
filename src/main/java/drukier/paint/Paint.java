@@ -1,5 +1,6 @@
 package drukier.paint;
 
+import javax.sound.sampled.Line;
 import javax.swing.*;
 import java.awt.*;
 
@@ -20,10 +21,10 @@ public class Paint extends JFrame {
         toolbox.setLayout(new GridLayout());
 
         JButton pencil = new JButton("Pencil");
-        pencil.addActionListener(e ->{canvas.setTool(PaintTool.Pencil);});
+        pencil.addActionListener(e ->{canvas.setTool(new LineTool());});
 
         JButton rectangle = new JButton("Rectangle");
-        rectangle.addActionListener(e ->{canvas.setTool(PaintTool.Rectangle);});
+        rectangle.addActionListener(e ->{canvas.setTool(new RectangleTool());});
 
         JButton color = new JButton("Colors");
         color.addActionListener(e -> {

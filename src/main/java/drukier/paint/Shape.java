@@ -2,11 +2,11 @@ package drukier.paint;
 
 import java.awt.*;
 
-public class Shape {
+public abstract class Shape {
 
     private Color color;
 
-    private PaintTool tool;
+    private Tool tool;
 
     public Color getColor() {
         return color;
@@ -16,11 +16,16 @@ public class Shape {
         this.color = color;
     }
 
-    public PaintTool getTool() {
+    public Tool getTool() {
         return tool;
     }
 
-    public void setTool(PaintTool tool) {
+    public void setTool(Tool tool) {
         this.tool = tool;
     }
+
+    public void paint(Graphics g){
+        g.setColor(getColor());
+    }
 }
+

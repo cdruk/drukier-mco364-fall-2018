@@ -66,11 +66,10 @@ public class Rectangle extends Shape {
         }
     }
 
-    public int getTopLeftX() {
-        return topLeftX;
-    }
-
-    public int getTopLeftY() {
-        return topLeftY;
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        g.drawRect(topLeftX, topLeftY,
+                width, height);
     }
 }

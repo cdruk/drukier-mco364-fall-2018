@@ -14,7 +14,7 @@ public class Canvas extends JComponent
 
     private int currentShape = -1;
 
-    private PaintTool tool = PaintTool.Pencil;
+    private Tool tool = new LineTool();
 
     private Color currentColor = Color.black;
 
@@ -33,31 +33,12 @@ public class Canvas extends JComponent
     }
 
     private void paintShapes(Graphics g) {
-        if (!shapes.isEmpty()) {
-            for (Shape shape : shapes) {
-                g.setColor(shape.getColor());
-                switch (shape.getTool()) {
-                    case Pencil:
-                        ArrayList<Dot> points = ((Line) shape).getPoints();
-                        for (int i = 1; i < points.size(); i++) {
-                            g.drawLine(
-                                    points.get(i).getDotX(), points.get(i).getDotY(),
-                                    points.get(i - 1).getDotX(), points.get(i - 1).getDotY());
-                        }
-                        break;
-                    case Rectangle:
-                        Rectangle rectangle = ((Rectangle) shape);
-                        g.drawRect(rectangle.getTopLeftX(), rectangle.getTopLeftY(),
-                                rectangle.getWidth(), rectangle.getHeight());
-                        break;
-                }
+        for (Shape shape : shapes) {
+                shape.paint(g);
             }
-        }
-
-
     }
 
-    public void setTool(PaintTool tool) {
+    public void setTool(Tool tool) {
         this.tool = tool;
     }
 
@@ -77,30 +58,18 @@ public class Canvas extends JComponent
     @Override
     public void mousePressed(MouseEvent e) {
 
-        if (tool == PaintTool.Pencil) {
-            Line line = new Line(currentColor);
-            line.setTool(PaintTool.Pencil);
-            ArrayList<Dot> points = new ArrayList<>();
-            line.setPoints(points);
-            shapes.add(line);
-            currentShape++;
-        }
+        tool.onPress(e.getX(), e.getY(), currentColor);
+        shapes.add(tool.getShape());
+        currentShape++;
 
-        if (tool == PaintTool.Rectangle) {
-            Rectangle rect = new Rectangle(e.getX(), e.getY(), currentColor);
-            rect.setTool(PaintTool.Rectangle);
-            shapes.add(rect);
-            currentShape++;
-        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if (tool == PaintTool.Rectangle) {
-            ((Rectangle) shapes.get(currentShape)).setEndX(e.getX());
-            ((Rectangle) shapes.get(currentShape)).setEndY(e.getY());
-            repaint();
-        }
+
+        tool.onRelease(e.getX(), e.getY());
+        repaint();
+
     }
 
     @Override
@@ -115,19 +84,10 @@ public class Canvas extends JComponent
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if (!shapes.isEmpty()) {
-            if (tool == PaintTool.Pencil) {
-                ArrayList<Dot> points = ((Line) shapes.get(currentShape)).getPoints();
-                points.add(new Dot(e.getX(), e.getY()));
-                repaint();
-            }
 
-            if (tool == PaintTool.Rectangle) {
-                ((Rectangle) shapes.get(currentShape)).setEndX(e.getX());
-                ((Rectangle) shapes.get(currentShape)).setEndY(e.getY());
-                repaint();
-            }
-        }
+        tool.onDrag(e.getX(), e.getY());
+        repaint();
+
     }
 
     @Override
