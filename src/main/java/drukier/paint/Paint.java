@@ -6,8 +6,10 @@ import java.awt.*;
 
 public class Paint extends JFrame {
 
-    private Canvas canvas = new Canvas();
 
+    private Tool lineTool = new LineTool();
+    private Tool rectangleTool = new RectangleTool();
+    private Canvas canvas = new Canvas(lineTool);
 
     public Paint() {
         setTitle("Paint");
@@ -21,10 +23,14 @@ public class Paint extends JFrame {
         toolbox.setLayout(new GridLayout());
 
         JButton pencil = new JButton("Pencil");
-        pencil.addActionListener(e ->{canvas.setTool(new LineTool());});
+        pencil.addActionListener(e -> {
+            canvas.setTool(lineTool);
+        });
 
         JButton rectangle = new JButton("Rectangle");
-        rectangle.addActionListener(e ->{canvas.setTool(new RectangleTool());});
+        rectangle.addActionListener(e -> {
+            canvas.setTool(rectangleTool);
+        });
 
         JButton color = new JButton("Colors");
         color.addActionListener(e -> {

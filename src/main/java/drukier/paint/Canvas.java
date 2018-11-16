@@ -12,15 +12,14 @@ public class Canvas extends JComponent
 
     private ArrayList<Shape> shapes = new ArrayList<>();
 
-    private int currentShape = -1;
-
-    private Tool tool = new LineTool();
+    private Tool tool;
 
     private Color currentColor = Color.black;
 
-    public Canvas() {
+    public Canvas(Tool tool) {
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
+        setTool(tool);
     }
 
     @Override
@@ -34,8 +33,8 @@ public class Canvas extends JComponent
 
     private void paintShapes(Graphics g) {
         for (Shape shape : shapes) {
-                shape.paint(g);
-            }
+            shape.paint(g);
+        }
     }
 
     public void setTool(Tool tool) {
@@ -60,7 +59,6 @@ public class Canvas extends JComponent
 
         tool.onPress(e.getX(), e.getY(), currentColor);
         shapes.add(tool.getShape());
-        currentShape++;
 
     }
 
