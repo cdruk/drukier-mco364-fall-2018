@@ -46,7 +46,7 @@ public class Paint extends JFrame {
 
         JButton undo = new JButton("Undo");
         undo.addActionListener(e -> {
-            Undo();
+            canvas.Undo();
         });
 
         JButton color = new JButton("Colors");
@@ -70,15 +70,6 @@ public class Paint extends JFrame {
 
         setContentPane(panel);
     }
-
-    private void Undo() {
-        if (!canvas.getShapes().isEmpty()) {
-            int undoShape = canvas.getShapes().size() - 1;
-            canvas.getShapes().remove(undoShape);
-            repaint();
-        }
-    }
-
 
     public static void main(String[] args) {
         new Paint().setVisible(true);

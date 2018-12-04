@@ -20,10 +20,6 @@ public class Canvas extends JComponent
         setTool(tool);
     }
 
-    public ArrayList<Shape> getShapes() {
-        return shapes;
-    }
-
     @Override
     protected void paintComponent(Graphics g) {
         g.setColor(Color.WHITE);
@@ -50,6 +46,15 @@ public class Canvas extends JComponent
     public void setCurrentColor(Color currentColor) {
         this.currentColor = currentColor;
     }
+
+    public void Undo() {
+        if (!shapes.isEmpty()) {
+            int undoShape = shapes.size() - 1;
+            shapes.remove(undoShape);
+            repaint();
+        }
+    }
+
 
     @Override
     public void mouseClicked(MouseEvent e) {
