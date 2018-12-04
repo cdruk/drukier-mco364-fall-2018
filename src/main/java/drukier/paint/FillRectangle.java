@@ -2,7 +2,7 @@ package drukier.paint;
 
 import java.awt.*;
 
-public class Rectangle extends Shape {
+public class FillRectangle extends Shape{
 
     private int x;
     private int y;
@@ -13,8 +13,7 @@ public class Rectangle extends Shape {
     private int topLeftX;
     private int topLeftY;
 
-
-    public Rectangle(int x, int y, Color color) {
+    public FillRectangle(int x, int y, Color color) {
         this.x = x;
         this.y = y;
         setColor(color);
@@ -61,7 +60,7 @@ public class Rectangle extends Shape {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        g.drawRect(topLeftX, topLeftY,
+        g.fillRect(topLeftX, topLeftY,
                 width, height);
     }
 }

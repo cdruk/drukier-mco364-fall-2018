@@ -3,29 +3,29 @@ package drukier.paint;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class LineTool implements Tool {
+public class EraserTool implements Tool {
 
-    private Line line;
+    private Eraser eraser;
 
-    public LineTool() {
+    public EraserTool() {
 
     }
 
     @Override
-    public Line getShape() {
-        return line;
+    public Eraser getShape() {
+        return eraser;
     }
 
     @Override
     public void onPress(int x, int y, Color color) {
-        line = new Line(color);
+        eraser = new Eraser();
         ArrayList<Dot> points = new ArrayList<>();
-        line.setPoints(points);
+        eraser.setPoints(points);
     }
 
     @Override
     public void onDrag(int x, int y) {
-        ArrayList<Dot> points = line.getPoints();
+        ArrayList<Dot> points = eraser.getPoints();
         points.add(new Dot(x, y));
     }
 

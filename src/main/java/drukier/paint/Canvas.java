@@ -2,9 +2,7 @@ package drukier.paint;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class Canvas extends JComponent
@@ -20,6 +18,10 @@ public class Canvas extends JComponent
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
         setTool(tool);
+    }
+
+    public ArrayList<Shape> getShapes() {
+        return shapes;
     }
 
     @Override
@@ -92,6 +94,5 @@ public class Canvas extends JComponent
     public void mouseMoved(MouseEvent e) {
 
     }
-
 
 }

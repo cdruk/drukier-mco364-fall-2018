@@ -9,6 +9,8 @@ public class Paint extends JFrame {
 
     private Tool lineTool = new LineTool();
     private Tool rectangleTool = new RectangleTool();
+    private Tool fillRectangleTool = new FillRectangleTool();
+    private Tool eraserTool = new EraserTool();
     private Canvas canvas = new Canvas(lineTool);
 
     public Paint() {
@@ -20,7 +22,7 @@ public class Paint extends JFrame {
         panel.setLayout(new BorderLayout());
 
         JPanel toolbox = new JPanel();
-        toolbox.setLayout(new GridLayout());
+        toolbox.setLayout(new GridLayout(2,3));
 
         JButton pencil = new JButton("Pencil");
         pencil.addActionListener(e -> {
@@ -30,6 +32,21 @@ public class Paint extends JFrame {
         JButton rectangle = new JButton("Rectangle");
         rectangle.addActionListener(e -> {
             canvas.setTool(rectangleTool);
+        });
+
+        JButton fillRectangle = new JButton("Filled Rectangle");
+        fillRectangle.addActionListener(e -> {
+            canvas.setTool(fillRectangleTool);
+        });
+
+        JButton eraser = new JButton("Eraser");
+        eraser.addActionListener(e -> {
+            canvas.setTool(eraserTool);
+        });
+
+        JButton undo = new JButton("Undo");
+        undo.addActionListener(e -> {
+            Undo();
         });
 
         JButton color = new JButton("Colors");
@@ -43,12 +60,23 @@ public class Paint extends JFrame {
 
         toolbox.add(pencil);
         toolbox.add(rectangle);
+        toolbox.add(fillRectangle);
+        toolbox.add(eraser);
+        toolbox.add(undo);
         toolbox.add(color);
 
         panel.add(canvas, BorderLayout.CENTER);
         panel.add(toolbox, BorderLayout.NORTH);
 
         setContentPane(panel);
+    }
+
+    private void Undo() {
+        if (!canvas.getShapes().isEmpty()) {
+            int undoShape = canvas.getShapes().size() - 1;
+            canvas.getShapes().remove(undoShape);
+            repaint();
+        }
     }
 
 
