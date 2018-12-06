@@ -22,7 +22,9 @@ public class Eraser extends Shape{
     public void paint(Graphics g) {
         super.paint(g);
         for (int i = 1; i < points.size(); i++) {
-            g.drawLine(
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setStroke(new BasicStroke(5));
+            g2.drawLine(
                     points.get(i).getDotX(), points.get(i).getDotY(),
                     points.get(i - 1).getDotX(), points.get(i - 1).getDotY());
         }
