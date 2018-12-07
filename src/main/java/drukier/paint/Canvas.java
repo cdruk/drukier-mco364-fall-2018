@@ -20,6 +20,10 @@ public class Canvas extends JComponent
         setTool(tool);
     }
 
+    public ArrayList<Shape> getShapes() {
+        return shapes;
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         g.setColor(Color.WHITE);
