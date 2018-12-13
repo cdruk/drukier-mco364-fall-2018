@@ -1,4 +1,7 @@
-package drukier.paint;
+package drukier.paint.save;
+
+import drukier.paint.Canvas;
+import drukier.paint.shapes.Shape;
 
 import java.io.FileInputStream;
 import java.io.IOException;

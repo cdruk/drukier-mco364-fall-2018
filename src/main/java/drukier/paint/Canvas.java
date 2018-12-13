@@ -1,5 +1,8 @@
 package drukier.paint;
 
+import drukier.paint.shapes.Shape;
+import drukier.paint.tools.Tool;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -8,23 +11,23 @@ import java.util.ArrayList;
 public class Canvas extends JComponent
         implements MouseListener, MouseMotionListener {
 
-    private ArrayList<Shape> shapes = new ArrayList<>();
+    private ArrayList<drukier.paint.shapes.Shape> shapes = new ArrayList<>();
 
     private Tool tool;
 
     private Color currentColor = Color.black;
 
-    Canvas(Tool tool) {
+    public Canvas(Tool tool) {
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
         setTool(tool);
     }
 
-    ArrayList<Shape> getShapes() {
+    public ArrayList<drukier.paint.shapes.Shape> getShapes() {
         return shapes;
     }
 
-    void setShapes(ArrayList<Shape> shapes) {
+    public void setShapes(ArrayList<drukier.paint.shapes.Shape> shapes) {
         this.shapes = shapes;
         repaint();
     }

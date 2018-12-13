@@ -1,4 +1,7 @@
-package drukier.paint;
+package drukier.paint.save;
+
+import drukier.paint.Canvas;
+import drukier.paint.shapes.Shape;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -11,7 +14,7 @@ import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 public class SaveImage {
 
     private int imageSize;
-    private Canvas canvas;
+    private drukier.paint.Canvas canvas;
     private BufferedImage painting;
     private String fileName;
 

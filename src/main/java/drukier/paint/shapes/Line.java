@@ -1,4 +1,4 @@
-package drukier.paint;
+package drukier.paint.shapes;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -7,15 +7,15 @@ public class Line extends Shape {
     
     private ArrayList<Dot> points;
 
-    Line(Color color) {
+    public Line(Color color) {
         setColor(color);
     }
 
-    ArrayList<Dot> getPoints() {
+    public ArrayList<Dot> getPoints() {
         return points;
     }
 
-    void setPoints(ArrayList<Dot> points) {
+    public void setPoints(ArrayList<Dot> points) {
         this.points = points;
     }
 

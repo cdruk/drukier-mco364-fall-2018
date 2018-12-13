@@ -1,4 +1,4 @@
-package drukier.paint;
+package drukier.paint.shapes;
 
 import java.io.Serializable;
 
@@ -6,16 +6,16 @@ public class Dot implements Serializable {
     private int dotX;
     private int dotY;
 
-    Dot(int dotX, int dotY) {
+    public Dot(int dotX, int dotY) {
         this.dotX = dotX;
         this.dotY = dotY;
     }
 
-    int getDotX() {
+    public int getDotX() {
         return dotX;
     }
 
-    int getDotY() {
+    public int getDotY() {
         return dotY;
     }
 }

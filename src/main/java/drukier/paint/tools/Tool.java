@@ -1,8 +1,10 @@
-package drukier.paint;
+package drukier.paint.tools;
+
+import drukier.paint.shapes.Shape;
 
 import java.awt.*;
 
-interface Tool {
+public interface Tool {
 
     Shape getShape();
     void onPress(int x, int y, Color color);

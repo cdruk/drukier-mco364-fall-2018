@@ -1,5 +1,10 @@
 package drukier.paint;
 
+import drukier.paint.save.OpenEditableImage;
+import drukier.paint.save.SaveEditableImage;
+import drukier.paint.save.SaveImage;
+import drukier.paint.tools.*;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;

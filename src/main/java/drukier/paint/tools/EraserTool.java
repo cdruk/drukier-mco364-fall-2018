@@ -1,4 +1,7 @@
-package drukier.paint;
+package drukier.paint.tools;
+
+import drukier.paint.shapes.Dot;
+import drukier.paint.shapes.Eraser;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -7,7 +10,7 @@ public class EraserTool implements Tool {
 
     private Eraser eraser;
 
-    EraserTool() {
+    public EraserTool() {
 
     }
 

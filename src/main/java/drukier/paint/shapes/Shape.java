@@ -1,4 +1,4 @@
-package drukier.paint;
+package drukier.paint.shapes;
 
 import java.awt.*;
 import java.io.Serializable;

@@ -1,4 +1,7 @@
-package drukier.paint;
+package drukier.paint.tools;
+
+import drukier.paint.shapes.FillRectangle;
+import drukier.paint.shapes.Shape;
 
 import java.awt.*;
 
@@ -6,7 +9,7 @@ public class FillRectangleTool implements Tool {
 
     private FillRectangle fillRectangle;
 
-    FillRectangleTool() {
+    public FillRectangleTool() {
     }
 
     @Override
