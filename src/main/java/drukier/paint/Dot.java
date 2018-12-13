@@ -1,6 +1,8 @@
 package drukier.paint;
 
-public class Dot {
+import java.io.Serializable;
+
+public class Dot implements Serializable {
     private int dotX;
     private int dotY;
 
@@ -17,4 +19,8 @@ public class Dot {
         return dotY;
     }
 
+    @Override
+    public String toString() {
+        return ("Dot:dotX:" + dotX + "dotY:" + dotY);
+    }
 }

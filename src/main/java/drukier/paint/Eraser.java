@@ -29,4 +29,9 @@ public class Eraser extends Shape{
                     points.get(i - 1).getDotX(), points.get(i - 1).getDotY());
         }
     }
+
+    @Override
+    public String toString() {
+        return ("Type:Eraser" +"\nColor:" + getColor() + "\nPoints:" + getPoints());
+    }
 }

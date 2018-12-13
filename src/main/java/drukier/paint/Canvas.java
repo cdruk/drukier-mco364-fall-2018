@@ -24,6 +24,11 @@ public class Canvas extends JComponent
         return shapes;
     }
 
+    public void setShapes(ArrayList<Shape> shapes) {
+        this.shapes = shapes;
+        repaint();
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         g.setColor(Color.WHITE);

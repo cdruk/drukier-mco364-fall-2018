@@ -30,4 +30,10 @@ public class FillRectangle extends Shape{
         g.fillRect(Math.min(x, endX), Math.min(y, endY),
                 Math.abs(endX - x), Math.abs(endY - y));
     }
+
+    @Override
+    public String toString() {
+        return ("Type:FillRectangle" +"\nColor:" + getColor() +
+                "\nx:" + x + "\ny:" + y + "\nendX:" + endX + "\nendY:" + endY);
+    }
 }

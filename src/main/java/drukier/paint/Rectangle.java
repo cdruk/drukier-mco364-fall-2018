@@ -29,4 +29,10 @@ public class Rectangle extends Shape {
         g.drawRect(Math.min(x, endX), Math.min(y, endY),
                 Math.abs(endX - x), Math.abs(endY - y));
     }
+
+    @Override
+    public String toString() {
+        return ("Type:Rectangle" +"\nColor:" + getColor() +
+                "\nx:" + x + "\ny:" + y + "\nendX:" + endX + "\nendY:" + endY);
+    }
 }
