@@ -1,17 +1,14 @@
 package drukier.paint;
 
-import javax.imageio.ImageIO;
 import java.io.*;
 import java.util.ArrayList;
 
 public class SaveEditableImage {
 
-    private Canvas canvas;
     private String fileName;
     private ArrayList<Shape> shapes;
 
     public SaveEditableImage(Canvas canvas, String fileName) {
-        this.canvas = canvas;
         this.fileName = fileName;
         shapes = canvas.getShapes();
 

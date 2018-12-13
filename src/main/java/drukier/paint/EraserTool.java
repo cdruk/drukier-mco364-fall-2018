@@ -7,7 +7,7 @@ public class EraserTool implements Tool {
 
     private Eraser eraser;
 
-    public EraserTool() {
+    EraserTool() {
 
     }
 

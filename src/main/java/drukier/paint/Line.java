@@ -7,15 +7,15 @@ public class Line extends Shape {
     
     private ArrayList<Dot> points;
 
-    public Line(Color color) {
+    Line(Color color) {
         setColor(color);
     }
 
-    public ArrayList<Dot> getPoints() {
+    ArrayList<Dot> getPoints() {
         return points;
     }
 
-    public void setPoints(ArrayList<Dot> points) {
+    void setPoints(ArrayList<Dot> points) {
         this.points = points;
     }
 
@@ -29,8 +29,4 @@ public class Line extends Shape {
         }
     }
 
-    @Override
-    public String toString() {
-        return ("Type:Line" +"\nColor:" + getColor() + "\nPoints:" + getPoints());
-    }
 }

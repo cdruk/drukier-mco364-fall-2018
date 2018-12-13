@@ -30,6 +30,5 @@ public class OpenEditableImage {
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Open failed");
         }
-        //canvas.repaint();
     }
 }

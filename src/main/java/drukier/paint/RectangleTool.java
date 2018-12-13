@@ -6,7 +6,7 @@ public class RectangleTool implements Tool {
 
     private Rectangle rectangle;
 
-    public RectangleTool() {
+    RectangleTool() {
     }
 
     @Override

@@ -87,7 +87,7 @@ public class Paint extends JFrame {
         String file;
         if (fileName == JFileChooser.APPROVE_OPTION) {
             file = chooser.getSelectedFile().toString() + ".png";
-            SaveImage saveImg = new SaveImage(canvasSize, canvas, file);
+            new SaveImage(canvasSize, canvas, file);
         }
     }
 
@@ -100,7 +100,7 @@ public class Paint extends JFrame {
         String file;
         if (fileName == JFileChooser.APPROVE_OPTION) {
             file = chooser.getSelectedFile().toString() + ".ser";
-            SaveEditableImage saveEditable = new SaveEditableImage(canvas, file);
+            new SaveEditableImage(canvas, file);
         }
     }
 
@@ -113,7 +113,7 @@ public class Paint extends JFrame {
         String file;
         if (fileName == JFileChooser.APPROVE_OPTION) {
             file = chooser.getSelectedFile().toString();
-            OpenEditableImage openEditable = new OpenEditableImage(canvas, file);
+            new OpenEditableImage(canvas, file);
         }
     }
 

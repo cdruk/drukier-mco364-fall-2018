@@ -7,7 +7,7 @@ public class LineTool implements Tool {
 
     private Line line;
 
-    public LineTool() {
+    LineTool() {
 
     }
 

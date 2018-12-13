@@ -14,17 +14,17 @@ public class Canvas extends JComponent
 
     private Color currentColor = Color.black;
 
-    public Canvas(Tool tool) {
+    Canvas(Tool tool) {
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
         setTool(tool);
     }
 
-    public ArrayList<Shape> getShapes() {
+    ArrayList<Shape> getShapes() {
         return shapes;
     }
 
-    public void setShapes(ArrayList<Shape> shapes) {
+    void setShapes(ArrayList<Shape> shapes) {
         this.shapes = shapes;
         repaint();
     }
@@ -44,19 +44,19 @@ public class Canvas extends JComponent
         }
     }
 
-    public void setTool(Tool tool) {
+    void setTool(Tool tool) {
         this.tool = tool;
     }
 
-    public Color getCurrentColor() {
+    Color getCurrentColor() {
         return currentColor;
     }
 
-    public void setCurrentColor(Color currentColor) {
+    void setCurrentColor(Color currentColor) {
         this.currentColor = currentColor;
     }
 
-    public void Undo() {
+    void Undo() {
         if (!shapes.isEmpty()) {
             int undoShape = shapes.size() - 1;
             shapes.remove(undoShape);

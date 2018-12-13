@@ -6,21 +6,16 @@ public class Dot implements Serializable {
     private int dotX;
     private int dotY;
 
-    public Dot(int dotX, int dotY) {
+    Dot(int dotX, int dotY) {
         this.dotX = dotX;
         this.dotY = dotY;
     }
 
-    public int getDotX() {
+    int getDotX() {
         return dotX;
     }
 
-    public int getDotY() {
+    int getDotY() {
         return dotY;
-    }
-
-    @Override
-    public String toString() {
-        return ("Dot:dotX:" + dotX + "dotY:" + dotY);
     }
 }

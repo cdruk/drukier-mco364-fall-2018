@@ -6,7 +6,7 @@ public class FillRectangleTool implements Tool {
 
     private FillRectangle fillRectangle;
 
-    public FillRectangleTool() {
+    FillRectangleTool() {
     }
 
     @Override

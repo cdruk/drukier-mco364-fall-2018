@@ -9,17 +9,17 @@ public class Rectangle extends Shape {
     private int endX;
     private int endY;
 
-    public Rectangle(int x, int y, Color color) {
+    Rectangle(int x, int y, Color color) {
         this.x = x;
         this.y = y;
         setColor(color);
     }
 
-    public void setEndX(int endX) {
+    void setEndX(int endX) {
         this.endX = endX;
     }
 
-    public void setEndY(int endY) {
+    void setEndY(int endY) {
         this.endY = endY;
     }
 
@@ -28,11 +28,5 @@ public class Rectangle extends Shape {
         super.paint(g);
         g.drawRect(Math.min(x, endX), Math.min(y, endY),
                 Math.abs(endX - x), Math.abs(endY - y));
-    }
-
-    @Override
-    public String toString() {
-        return ("Type:Rectangle" +"\nColor:" + getColor() +
-                "\nx:" + x + "\ny:" + y + "\nendX:" + endX + "\nendY:" + endY);
     }
 }
