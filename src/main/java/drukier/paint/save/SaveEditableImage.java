@@ -22,9 +22,7 @@ public class SaveEditableImage {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(fileName);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-
             objectOutputStream.writeObject(shapes);
-
             objectOutputStream.close();
         } catch (IOException e){
             System.out.println("Save failed");

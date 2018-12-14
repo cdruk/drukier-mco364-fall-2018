@@ -2,7 +2,6 @@ package drukier.paint.tools;
 
 import drukier.paint.shapes.Dot;
 import drukier.paint.shapes.Eraser;
-
 import java.awt.*;
 import java.util.ArrayList;
 

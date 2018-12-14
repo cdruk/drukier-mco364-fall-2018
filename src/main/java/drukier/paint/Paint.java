@@ -104,7 +104,7 @@ public class Paint extends JFrame {
         int fileName = chooser.showSaveDialog(this);
         String file;
         if (fileName == JFileChooser.APPROVE_OPTION) {
-            file = chooser.getSelectedFile().toString() + ".ser";
+            file = chooser.getSelectedFile().toString() + ".txt";
             new SaveEditableImage(canvas, file);
         }
     }
@@ -112,7 +112,7 @@ public class Paint extends JFrame {
     private void openAsPaint() {
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "Paint File", "ser");
+                "Paint File", "txt");
         chooser.setFileFilter(filter);
         int fileName = chooser.showOpenDialog(this);
         String file;

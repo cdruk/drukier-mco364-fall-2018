@@ -2,7 +2,6 @@ package drukier.paint.tools;
 
 import drukier.paint.shapes.FillRectangle;
 import drukier.paint.shapes.Shape;
-
 import java.awt.*;
 
 public class FillRectangleTool implements Tool {

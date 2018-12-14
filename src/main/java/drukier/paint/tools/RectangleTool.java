@@ -1,7 +1,6 @@
 package drukier.paint.tools;
 
 import drukier.paint.shapes.Rectangle;
-
 import java.awt.*;
 
 public class RectangleTool implements Tool {

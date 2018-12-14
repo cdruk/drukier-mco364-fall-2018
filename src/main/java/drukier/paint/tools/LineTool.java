@@ -2,7 +2,6 @@ package drukier.paint.tools;
 
 import drukier.paint.shapes.Dot;
 import drukier.paint.shapes.Line;
-
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -11,7 +10,6 @@ public class LineTool implements Tool {
     private Line line;
 
     public LineTool() {
-
     }
 
     @Override

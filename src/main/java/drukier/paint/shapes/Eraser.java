@@ -3,7 +3,7 @@ package drukier.paint.shapes;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Eraser extends Shape{
+public class Eraser extends Shape {
     private ArrayList<Dot> points;
 
     public Eraser() {

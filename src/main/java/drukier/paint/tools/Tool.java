@@ -1,7 +1,6 @@
 package drukier.paint.tools;
 
 import drukier.paint.shapes.Shape;
-
 import java.awt.*;
 
 public interface Tool {
