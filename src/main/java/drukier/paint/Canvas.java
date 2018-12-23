@@ -6,6 +6,7 @@ import drukier.paint.tools.Tool;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Canvas extends JComponent
@@ -32,16 +33,25 @@ public class Canvas extends JComponent
 
     @Override
     protected void paintComponent(Graphics g) {
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0, getWidth(), getHeight());
 
-        paintShapes(g);
+        BufferedImage image =
+                new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics imageGraphics = image.createGraphics();
+
+        drawCanvas(image, imageGraphics);
+
+        paintShapes(image, imageGraphics);
 
     }
 
-    private void paintShapes(Graphics g) {
+    private void drawCanvas(BufferedImage image, Graphics imageGraphics) {
+        imageGraphics.setColor(Color.WHITE);
+        imageGraphics.fillRect(0, 0, getWidth(), getHeight());
+    }
+
+    private void paintShapes(BufferedImage image, Graphics imageGraphics) {
         for (Shape shape : shapes) {
-            shape.paint(g);
+            shape.paint(image, imageGraphics);
         }
     }
 

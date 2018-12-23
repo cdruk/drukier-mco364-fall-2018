@@ -1,6 +1,7 @@
 package drukier.paint.shapes;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
 public abstract class Shape implements Serializable {
@@ -15,8 +16,8 @@ public abstract class Shape implements Serializable {
         this.color = color;
     }
 
-    public void paint(Graphics g){
-        g.setColor(getColor());
+    public void paint(BufferedImage image, Graphics imageGraphics){
+        imageGraphics.setColor(getColor());
     }
 }
 

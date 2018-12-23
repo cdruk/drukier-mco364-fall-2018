@@ -23,18 +23,18 @@ public class SaveImage {
         this.canvas = canvas;
         painting = new BufferedImage(imageSize, imageSize, TYPE_INT_ARGB);
         this.fileName = fileName;
-        paintImage();
+//        paintImage();
         saveImage();
     }
 
-    private void paintImage() {
-        Graphics2D g2 = painting.createGraphics();
-        g2.setColor(Color.WHITE);
-        g2.fillRect(0, 0, imageSize, imageSize);
-        for (Shape shape : canvas.getShapes()) {
-            shape.paint(g2);
-        }
-    }
+//    private void paintImage() {
+//        Graphics2D g = painting.createGraphics();
+//        g.setColor(Color.WHITE);
+//        g.fillRect(0, 0, imageSize, imageSize);
+//        for (Shape shape : canvas.getShapes()) {
+//            shape.paint();
+//        }
+//    }
 
     private void saveImage() {
         try {
